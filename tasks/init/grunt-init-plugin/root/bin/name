@@ -1,0 +1,10 @@
+#!/usr/bin/env node
+var grunt = require("grunt");
+
+// Preload all custom tasks.
+grunt.npmTasks([
+  "{%= name %}"
+]);
+
+// Otherwise, invoke the CLI.
+grunt.cli();

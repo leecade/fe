@@ -1,0 +1,5 @@
+{
+  ".DS_Store": false,
+  "bin/name": "bin/{%= name %}",
+  "tasks/init/name.js": "tasks/init/{%= name %}.js"
+}

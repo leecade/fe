@@ -1,0 +1,33 @@
+{
+  "name": "fe",
+  "description": "Grunt plugin to generate grunt init templates",
+  "version": "0.1.0",
+  "homepage": "https://leecade.github.com/fe",
+  "author": {
+    "name": "leecade",
+    "email": "leecade@163.com",
+    "url": "http://jsser.com"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/leecade/fe.git"
+  },
+  "bugs": {
+    "url": "https://github.com/leecade/fe/issues"
+  },
+  "dependencies": {
+    "grunt": "0.3.15"
+  },
+  "devDependencies": {
+    "grunt": "~0.3.15"
+  },
+  "keywords": ["gruntplugin"],
+  "engines": {
+    "node": ">= 0.8.8"
+  },
+  "main": "grunt.js",
+  "bin": "bin/fe",
+  "scripts": {
+    "test": "grunt test"
+  }
+}
