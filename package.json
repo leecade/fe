@@ -1,7 +1,7 @@
 {
   "name": "fe",
   "description": "Grunt plugin to generate grunt init templates",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "homepage": "https://leecade.github.com/fe",
   "author": {
     "name": "leecade",
