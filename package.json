@@ -52,9 +52,7 @@
     "bin",
     "lib"
   ],
-  "bin": {
-    "fe": "./lib/index.js"
-  },
+  "bin": "bin/fe",
   "scripts": {
     "dev": "webpack --watch",
     "start": "npm run dev",
