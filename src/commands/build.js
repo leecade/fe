@@ -1,1 +1,3 @@
-console.log('build')
+export default () => {
+  console.log('build')
+}

@@ -1,5 +1,6 @@
 import path from 'path'
 import fs from 'fs'
+import webpack from 'webpack'
 const rootPath = __dirname
 const srcPath = path.join(rootPath, 'src')
 const distPath = path.join(rootPath, 'lib')
@@ -19,7 +20,7 @@ export default {
     __dirname: false
   },
   entry: {
-    'index': [path.join(srcPath, 'index.js')]
+    'index': ['babel-polyfill', path.join(srcPath, 'index.js')]
   },
   output: {
     path: distPath,
@@ -29,6 +30,15 @@ export default {
     // publicPath: `http://localhost:${port}/`
   },
   plugins: [
+    new webpack.optimize.UglifyJsPlugin({
+      compressor: {
+        warnings: false
+        // remove `console.*`
+      },
+      output: {
+        comments: false
+      }
+    })
   ],
   stats: {
     // Nice colored output
@@ -49,7 +59,10 @@ export default {
     noParse: [
       // 'react/dist/react.js',
       // 'react-dom/dist/react-dom.js'
-    ]
+    ],
+
+    // disable Critical dependency warnning
+    exprContextCritical: false
   },
 
   resolve: {
@@ -59,7 +72,7 @@ export default {
     // optimize jquery
     alias: {
     }
-  },
+  }
 
-  externals: nodeModules
+  // , externals: nodeModules
 }

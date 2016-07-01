@@ -1,25 +1,91 @@
-var program = require('commander')
-// var colors = require('colors')
+// var program = require('commander')
+import path from 'path'
+import commander from 'commander'
+import chalk from 'chalk'
 
-/*
-dev
-build
-deploy
-test
-lint
- */
+import dev from './commands/dev'
+import build from './commands/build'
+import init from './commands/init'
+import list from './commands/list'
+import generate from './commands/generate'
+import deploy from './commands/deploy'
+import update from './commands/update'
+import upgrade from './commands/upgrade'
 
-program
-  .version('0.0.1')
-  .description('An application for pizzas ordering')
-  .command('install [name]', 'install one or more packages')
-  .command('search [query]', 'search with optional query')
-  .command('list', 'list packages installed')
-  .parse(process.argv)
+import { log, walkup } from './utils'
 
-program.runningCommand.on('exit', function (code) {
-  console.log('data from foo: ' + code)
+if (!walkup('fe.config.js')) {
+  log.warning(`No ${chalk.magenta.underline('fe.config.js')} or ${chalk.magenta.underline('fe.config.babel.js')} found, run ${chalk.magenta.underline('fe init')} first in your project root folder`)
+}
+
+import pkg from '../package.json'
+
+const rootPath = path.resolve('.')
+const version = pkg.version
+
+commander
+  .version(version || '0.0.1')
+  .description(`A modern development workflow: ${chalk.magenta.underline('fe init')} > ${chalk.magenta.underline('fe dev')} > ${chalk.magenta.underline('fe g route')}`)
+
+commander
+  // .command('info <dir> [thing]', 'xxx')
+  .command('dev')
+  .description(`Enter ${chalk.yellow.underline('development')} mode, with liveload support`)
+  .alias('d')
+  .option('-p, --port', 'Add peppers')
+  .action(dev)
+
+commander
+  .command('build')
+  .description(`${chalk.green.underline('Build')} static assets with dependencies`)
+  .alias('b')
+  .action(build)
+
+commander
+  .command('init [ui]')
+  .description(`Initiate a project with [${chalk.white.underline('empty')}|${chalk.red.underline('cms')}|${chalk.gray.underline('link')}] ui bolierplate`)
+  .action(init)
+
+commander
+  .command('list')
+  .description(`List the components in ${chalk.magenta.underline('fe')}-ecosystem`)
+  .alias('l')
+  .action(list)
+
+commander
+  .command('generate [thing]')
+  .description(`Generate [${chalk.underline('component')}|${chalk.underline('route')}]`)
+  .alias('g')
+  .action(generate)
+
+commander
+  .command('deploy [env]')
+  .description('Deploy code to spec env')
+  .action(deploy)
+
+commander
+  .command('update')
+  .description('Update local outdated modules')
+  .alias('up')
+  .action(update.bind(null, rootPath))
+
+commander
+  .command('upgrade')
+  .description(`Upgrade ${chalk.magenta.underline('fe')} tool`)
+  .action(upgrade.bind(null, version))
+
+commander.on('--help', function () {
+  console.log('  Examples:')
+  console.log('')
+  console.log('    $ fe dev -p 3000')
+  console.log('    $ fe dev -h')
+  console.log('')
 })
 
-// if (!program.args.length) program.help()
-export default program
+commander.parse(process.argv)
+
+if (!commander.args.length) commander.help()
+/* if (!process.argv.slice(2).length) {
+  commander.outputHelp()
+}*/
+export default commander

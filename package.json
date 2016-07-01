@@ -1,12 +1,12 @@
 {
   "name": "fe",
   "description": "Grunt plugin to generate grunt init templates",
-  "version": "0.1.0",
+  "version": "0.1.3",
   "homepage": "https://leecade.github.com/fe",
   "author": {
     "name": "leecade",
     "email": "leecade@163.com",
-    "url": "http://jsser.com"
+    "url": "https://github.com/leecade"
   },
   "repository": {
     "type": "git",
@@ -16,16 +16,25 @@
     "url": "https://github.com/leecade/fe/issues"
   },
   "dependencies": {
+    "chalk": "^1.1.3",
     "colors": "^1.1.2",
     "commander": "^2.9.0",
-    "ora": "^0.2.3"
+    "debug": "^2.2.0",
+    "execa": "^0.4.0",
+    "listr": "^0.4.1",
+    "ora": "^0.2.3",
+    "progress": "^1.1.8",
+    "semver": "^5.2.0",
+    "updtr": "^0.2.1"
   },
   "devDependencies": {
     "babel-core": "^6.10.4",
     "babel-eslint": "^6.1.0",
     "babel-loader": "^6.2.4",
+    "babel-polyfill": "^6.9.1",
     "babel-preset-fe": "^1.0.11",
     "espower": "^1.3.2",
+    "json-loader": "^0.5.4",
     "power-assert": "^1.4.1",
     "pre-commit": "^1.1.3",
     "snazzy": "^4.0.0",
@@ -36,13 +45,20 @@
     "fe"
   ],
   "engines": {
-    "npm": ">= 3"
+    "npm" : "3.x"
   },
-  "main": "",
-  "bin": "bin/fe",
+  "main": "lib/index.js",
+  "files": [
+    "bin",
+    "lib"
+  ],
+  "bin": {
+    "fe": "./lib/index.js"
+  },
   "scripts": {
     "dev": "webpack --watch",
-    "start": "node bin/fe",
+    "start": "npm run dev",
+    "prepublish": "npm version patch -m \"bump %s\"",
     "precommit": "git diff --name-only --cached --relative | grep '\\.jsx\\?$' | xargs standard | snazzy; if [ $? -ne 0 ]; then exit 1; fi"
   },
   "pre-commit": {
@@ -62,5 +78,6 @@
       "mock/",
       "node_modules/"
     ]
-  }
+  },
+  "license": "MIT"
 }
