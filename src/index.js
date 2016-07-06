@@ -2,6 +2,11 @@
 import path from 'path'
 import commander from 'commander'
 import chalk from 'chalk'
+import {
+  log,
+  findRoot
+} from './utils'
+import pkg from '../package.json'
 
 import dev from './commands/dev'
 import build from './commands/build'
@@ -12,15 +17,14 @@ import deploy from './commands/deploy'
 import update from './commands/update'
 import upgrade from './commands/upgrade'
 
-import { log, walkup } from './utils'
+const cwdPath = path.resolve('.')
+let projectRootPath = findRoot('fe.config.js', cwdPath) || findRoot('fe.config.babel.js', cwdPath)
 
-if (!walkup('fe.config.js')) {
-  log.warning(`No ${chalk.magenta.underline('fe.config.js')} or ${chalk.magenta.underline('fe.config.babel.js')} found, run ${chalk.magenta.underline('fe init')} first in your project root folder`)
+if (!projectRootPath) {
+  log.warning(`No ${chalk.magenta.underline('fe.config.js')} or ${chalk.magenta.underline('fe.config.babel.js')} found, run ${chalk.magenta.underline('fe init')} first in your project's root folder`)
+  projectRootPath = cwdPath
 }
 
-import pkg from '../package.json'
-
-const rootPath = path.resolve('.')
 const version = pkg.version
 
 commander
@@ -39,7 +43,8 @@ commander
   .command('build')
   .description(`${chalk.green.underline('Build')} static assets with dependencies`)
   .alias('b')
-  .action(build)
+  .option('-w, --watch', 'Watching mode')
+  .action(build.bind(null, projectRootPath))
 
 commander
   .command('init [ui]')
@@ -67,7 +72,7 @@ commander
   .command('update')
   .description('Update local outdated modules')
   .alias('up')
-  .action(update.bind(null, rootPath))
+  .action(update.bind(null, projectRootPath))
 
 commander
   .command('upgrade')

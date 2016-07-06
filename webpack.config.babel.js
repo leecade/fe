@@ -57,6 +57,7 @@ export default {
       include: srcPath
     }],
     noParse: [
+      // 'request/index.js'
       // 'react/dist/react.js',
       // 'react-dom/dist/react-dom.js'
     ],
@@ -72,7 +73,7 @@ export default {
     // optimize jquery
     alias: {
     }
-  }
+  },
 
-  // , externals: nodeModules
+  externals: nodeModules
 }
