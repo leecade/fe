@@ -41,7 +41,6 @@ export default async (cwd, cmd) => {
     poll: true // use polling instead of native watchers
     // pass a number to set the polling interval
   }, (err, stats) => {
-    console.log(1111)
     err
       ? log.error(err)
       : log.success('Built successed!')
