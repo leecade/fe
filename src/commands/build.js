@@ -3,13 +3,13 @@ import webpack from 'webpack'
 import chalk from 'chalk'
 import {
   log,
-  // wait,
+  wait,
   Spinner
 } from '../utils'
 
 const spinner = new Spinner()
 
-export default (cwd, cmd) => {
+export default async (cwd, cmd) => {
   const compiler = webpack({
     entry: {
       'index': [path.join(cwd, 'src/index.js')]
@@ -26,6 +26,8 @@ export default (cwd, cmd) => {
   spinner.start('running', {
     text: `Building, current path: ${chalk.magenta.underline(cwd)}`
   })
+
+  await wait(1)
 
   compiler.run((err, stats) => {
     spinner.stop()
