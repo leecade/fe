@@ -1,7 +1,7 @@
 {
   "name": "fe",
   "description": "Grunt plugin to generate grunt init templates",
-  "version": "0.1.5",
+  "version": "0.1.6",
   "homepage": "https://leecade.github.com/fe",
   "author": {
     "name": "leecade",
@@ -35,8 +35,7 @@
     "webpack-dev-middleware": "^1.6.1",
     "webpack-dev-server": "^2.1.0-beta.0",
     "webpack-hot-middleware": "^2.12.0",
-    "babel-polyfill": "^6.9.1",
-    "webpack": "^2.1.0-beta.15"
+    "babel-polyfill": "^6.9.1"
   },
   "devDependencies": {
     "babel-core": "^6.10.4",
