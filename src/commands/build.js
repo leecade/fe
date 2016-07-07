@@ -3,13 +3,13 @@ import webpack from 'webpack'
 import chalk from 'chalk'
 import {
   log,
-  // wait,
+  wait,
   Spinner
 } from '../utils'
 
 const spinner = new Spinner()
 
-export default cmd => {
+export default async cmd => {
   const cwd = cmd.opts.projectRootPath
   const compiler = webpack({
     entry: {
@@ -28,6 +28,8 @@ export default cmd => {
     text: `Building, current path: ${chalk.magenta.underline(cwd)}`
   })
 
+  await wait(1)
+
   compiler.run((err, stats) => {
     spinner.stop()
     err
@@ -40,7 +42,6 @@ export default cmd => {
     poll: true // use polling instead of native watchers
     // pass a number to set the polling interval
   }, (err, stats) => {
-    console.log(1111)
     err
       ? log.error(err)
       : log.success('Built successed!')
