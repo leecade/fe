@@ -1,7 +1,7 @@
 import { run, reporters } from 'updtr'
 
-export default (cwd, cmd) => run({
-  cwd: cwd,
+export default cmd => run({
+  cwd: cmd.opts.projectRootPath,
   reporter: reporters.default
   // wanted: commander.wanted,
   // testCmd: commander.test,

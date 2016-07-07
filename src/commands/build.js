@@ -9,7 +9,8 @@ import {
 
 const spinner = new Spinner()
 
-export default async (cwd, cmd) => {
+export default async cmd => {
+  const cwd = cmd.opts.projectRootPath
   const compiler = webpack({
     entry: {
       'index': [path.join(cwd, 'src/index.js')]

@@ -1,6 +1,6 @@
 import path from 'path'
 import fs from 'fs'
-import webpack from 'webpack'
+// import webpack from 'webpack'
 const rootPath = __dirname
 const srcPath = path.join(rootPath, 'src')
 const distPath = path.join(rootPath, 'lib')
@@ -30,7 +30,7 @@ export default {
     // publicPath: `http://localhost:${port}/`
   },
   plugins: [
-    new webpack.optimize.UglifyJsPlugin({
+/*    new webpack.optimize.UglifyJsPlugin({
       compressor: {
         warnings: false
         // remove `console.*`
@@ -38,7 +38,7 @@ export default {
       output: {
         comments: false
       }
-    })
+    })*/
   ],
   stats: {
     // Nice colored output
@@ -57,6 +57,10 @@ export default {
       include: srcPath
     }],
     noParse: [
+      // allow some js include dynamic require
+      // webpack(2.1.beta) not support dynamic require yet
+      // like: getMockRoutes
+      /\.noparse\.jsx?/
       // 'request/index.js'
       // 'react/dist/react.js',
       // 'react-dom/dist/react-dom.js'

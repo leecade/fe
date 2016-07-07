@@ -1,6 +1,6 @@
 import fs from 'fs'
+import path from 'path'
 import chalk from 'chalk'
-// import path from 'path'
 import ora from 'ora'
 import findup from 'findup'
 
@@ -103,5 +103,37 @@ export const findRoot = (filename, dir) => {
   } catch (err) {
     // not found
     return null
+  }
+}
+
+export const getSubDirs = parent => new Promise((resolve, reject) => {
+  fs.readdir(parent, (err, data) => {
+    if (err) return reject(err)
+    resolve(data.filter(dir => fs.statSync(path.join(parent, dir)).isDirectory()))
+  })
+})
+
+export class ListenerManager {
+  constructor (listener) {
+    this.key = 0
+    this.connections = {}
+    this.listener = listener
+    this.listener.on('connection', conn => {
+      const key = ++this.key
+      this.connections[key] = conn
+      conn.on('close', () => {
+        delete this.connections[key]
+      })
+    })
+  }
+  dispose () {
+    return new Promise(resolve => {
+      Object.keys(this.connections).forEach(key => this.connections[key].destroy())
+      if (this.listener) {
+        this.listener.close(() => resolve())
+      } else {
+        resolve()
+      }
+    })
   }
 }

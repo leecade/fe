@@ -31,6 +31,12 @@ commander
   .version(version || '0.0.1')
   .description(`A modern development workflow: ${chalk.magenta.underline('fe init')} > ${chalk.magenta.underline('fe dev')} > ${chalk.magenta.underline('fe g route')}`)
 
+// Inject more opts on commander.prototype.opts
+Object.assign(commander.opts, {
+  projectRootPath,
+  version
+})
+
 commander
   // .command('info <dir> [thing]', 'xxx')
   .command('dev')
@@ -44,7 +50,7 @@ commander
   .description(`${chalk.green.underline('Build')} static assets with dependencies`)
   .alias('b')
   .option('-w, --watch', 'Watching mode')
-  .action(build.bind(null, projectRootPath))
+  .action(build)
 
 commander
   .command('init [ui]')
@@ -72,7 +78,7 @@ commander
   .command('update')
   .description('Update local outdated modules')
   .alias('up')
-  .action(update.bind(null, projectRootPath))
+  .action(update)
 
 commander
   .command('upgrade')

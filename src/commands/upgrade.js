@@ -12,14 +12,14 @@ export const checkVersion = async version => {
     : false
 }
 
-export default async (version, cmd) => {
+export default async cmd => {
   let spinner = ora({
     text: 'Checking for new version',
     color: 'yellow'
     // spinner: process.argv[2]
   }).start()
 
-  const shouldUpgrade = await checkVersion(version)
+  const shouldUpgrade = await checkVersion(cmd.opts.version)
   if (!shouldUpgrade) {
     spinner.stop()
     return log.success('You are using the latest version')
