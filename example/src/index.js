@@ -1,3 +1,9 @@
-export const x = new Promise((resolve, reject) => (a = {}) => console.log(a))
+import React from 'react';
+import ReactDOM from 'react-dom';
+import App from './App';
+import './index.css';
 
-console.log(22211111111)
+ReactDOM.render(
+  <App />,
+  document.getElementById('root')
+);

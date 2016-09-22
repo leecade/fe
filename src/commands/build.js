@@ -11,6 +11,10 @@ const spinner = new Spinner()
 
 export default async cmd => {
   const cwd = cmd.opts.projectRootPath
+
+  // Grab the webpack config, from:
+  // 1. global/config/webpack.config.build.js
+  // 2. local/config/webpack.config.build.js
   const compiler = webpack({
     entry: {
       'index': [path.join(cwd, 'src/index.js')]
@@ -25,7 +29,7 @@ export default async cmd => {
   })
 
   spinner.start('running', {
-    text: `Building, current path: ${chalk.magenta.underline(cwd)}`
+    text: `Building, root path: ${chalk.magenta.underline(cwd)}`
   })
 
   await wait(1)
