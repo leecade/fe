@@ -110,7 +110,7 @@ const runDevServer = ({ host, port, protocol, paths, config }) => {
     }
 
     spinner.start('done', {
-      text: `MockServer: http://127.0.0.1:3000`
+      text: `DevServer & MockServer: ${protocol}://${host}:${port}`
     })
 
     // clearConsole()
