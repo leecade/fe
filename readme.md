@@ -1,10 +1,12 @@
-TODO
+# FE
 
 `npm i -g npm@3`
 
 ## generate
 
 (read template define from 'fe.config.js' first, that means the generates provided by template)
+
+## Getting Started ##
 
 - component
 
