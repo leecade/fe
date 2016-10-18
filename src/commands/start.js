@@ -7,7 +7,8 @@ import chalk from 'chalk'
 import detect from 'detect-port'
 import clearConsole from '../utils/clearConsole'
 import openBrowser from '../utils/openBrowser'
-import formatWebpackMessages from '../utils/formatWebpackMessages'
+import Dashboard from 'webpack-dashboard'
+import DashboardPlugin from 'webpack-dashboard/plugin'
 
 let compiler
 
@@ -42,54 +43,8 @@ export default async cmd => {
 
 const setupCompiler = ({ host, port, protocol, config }) => {
   compiler = webpack(config)
-  compiler.plugin('invalid', function () {
-    clearConsole()
-    console.log('Compiling...')
-  })
-  compiler.plugin('done', function (stats) {
-    // clearConsole()
-
-    // We have switched off the default Webpack output in WebpackDevServer
-    // options so we are going to "massage" the warnings and errors and present
-    // them in a readable focused way.
-    var messages = formatWebpackMessages(stats.toJson({}, true))
-    if (!messages.errors.length && !messages.warnings.length) {
-      console.log(chalk.green('Compiled successfully!'))
-      console.log()
-      console.log('The app is running at:')
-      console.log()
-      console.log('  ' + chalk.cyan(protocol + '://' + host + ':' + port + '/'))
-      console.log()
-      console.log('Note that the development build is not optimized.')
-      console.log('To create a production build, use ' + chalk.cyan('npm run build') + '.')
-      console.log()
-    }
-
-    // If errors exist, only show errors.
-    if (messages.errors.length) {
-      console.log(chalk.red('Failed to compile.'))
-      console.log()
-      messages.errors.forEach(message => {
-        console.log(message)
-        console.log()
-      })
-      return
-    }
-
-    // Show warnings if no errors were found.
-    if (messages.warnings.length) {
-      console.log(chalk.yellow('Compiled with warnings.'))
-      console.log()
-      messages.warnings.forEach(message => {
-        console.log(message)
-        console.log()
-      })
-      // Teach some ESLint tricks.
-      console.log('You may use special comments to disable some warnings.')
-      console.log('Use ' + chalk.yellow('// eslint-disable-next-line') + ' to ignore the next line.')
-      console.log('Use ' + chalk.yellow('/* eslint-disable */') + ' to ignore all warnings in a file.')
-    }
-  })
+  const dashboard = new Dashboard()
+  compiler.apply(new DashboardPlugin(dashboard.setData))
 }
 
 const runDevServer = ({ host, port, protocol, paths, config }) => {
@@ -143,9 +98,9 @@ const runDevServer = ({ host, port, protocol, paths, config }) => {
       return console.log(err)
     }
 
-    clearConsole()
-    console.log(chalk.cyan('Starting the development server...'))
-    console.log()
+    // clearConsole()
+    // console.log(chalk.cyan('Starting the development server...'))
+    // console.log()
     openBrowser(protocol + '://' + host + ':' + port + '/')
   })
 }

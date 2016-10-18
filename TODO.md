@@ -23,3 +23,5 @@ query: {
     require.resolve('babel-preset-fe')
   ],
 ```
+
+- [ ] avoid refresh when js modif
