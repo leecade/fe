@@ -7,6 +7,7 @@ import {
   findRoot
 } from './utils'
 import pkg from '../package.json'
+import defaultConfig from './config'
 
 import dev from './commands/dev'
 import build from './commands/build'
@@ -16,6 +17,8 @@ import generate from './commands/generate'
 import deploy from './commands/deploy'
 import update from './commands/update'
 import upgrade from './commands/upgrade'
+
+import start from './commands/start'
 
 const cwdPath = path.resolve('.')
 let projectRootPath = findRoot('fe.config.js', cwdPath) || findRoot('fe.config.babel.js', cwdPath)
@@ -34,9 +37,14 @@ commander
 // Inject more opts on commander.prototype.opts
 Object.assign(commander.opts, {
   projectRootPath,
-  version
+  version,
+  defaultConfig
 })
 
+/*
+Notice:
+1. alias === command will cause the action run twice
+ */
 commander
   // .command('info <dir> [thing]', 'xxx')
   .command('dev')
@@ -44,6 +52,14 @@ commander
   .alias('d')
   .option('-p, --port', 'Add peppers')
   .action(dev)
+
+commander
+  // .command('info <dir> [thing]', 'xxx')
+  .command('dd')
+  .description(`TEST ${chalk.yellow.underline('development')} mode, with liveload support`)
+  .alias('ddd')
+  .option('-p, --port', 'Add peppers')
+  .action(start)
 
 commander
   .command('build')
@@ -96,7 +112,9 @@ commander.on('--help', function () {
 commander.parse(process.argv)
 
 if (!commander.args.length) commander.help()
-/* if (!process.argv.slice(2).length) {
+/*
+if (!process.argv.slice(2).length) {
   commander.outputHelp()
-}*/
+}
+*/
 export default commander

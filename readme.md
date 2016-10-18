@@ -1,4 +1,10 @@
-TODO
+# FE
+
+## ENV
+dev
+prod
+ci
+test
 
 ## GLOBAL
 
