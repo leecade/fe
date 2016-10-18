@@ -8,14 +8,12 @@ module.exports = [{
   // test:
   // http://localhost:3001/task?id=123&callback=cb
   route: '/task',
-  handler: ctx => {
-    ctx.body = {
-      code: 1,
-      data: {
-        query: ctx.query
-      }
+  handler: (req, res) => res.jsonp({
+    code: 1,
+    data: {
+      query: req.query
     }
-  }
+  })
 }, {
   method: 'GET',
 
@@ -23,21 +21,17 @@ module.exports = [{
   // http://localhost:3001/task/123
   // http://localhost:3001/task/123?callback=cb
   route: '/task/:id',
-  handler: ctx => {
-    ctx.body = {
-      code: 1,
-      data: {
-        params: ctx.params
-      }
+  handler: (req, res) => res.jsonp({
+    code: 1,
+    data: {
+      params: req.params
     }
-  }
+  })
 }, {
   method: 'POST',
   route: '/new-task',
-  handler: ctx => {
-    ctx.body = {
-      code: 1,
-      msg: 'success'
-    }
-  }
+  handler: (req, res) => res.json({
+    code: 1,
+    msg: 'success'
+  })
 }]

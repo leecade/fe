@@ -4,10 +4,16 @@ import './App.css'
 
 class App extends Component {
   state = {
-    a: 123
+    a: 331,
+    mockData: []
   }
   show = async () => {
-    await alert(123)
+    // await alert(123)
+  }
+  componentDidMount () {
+    fetch('/task-list')
+      .then(res => res.json())
+      .then(mockData => this.setState(Object.assign({}, this.state, { mockData })))
   }
   render () {
     this.show()
@@ -19,6 +25,9 @@ class App extends Component {
         </div>
         <p className='App-intro'>
           To get started, edit <code>src/App.js</code> and save to reload.
+        </p>
+        <p>
+          mockData: {JSON.stringify(this.state.mockData)} (from: mock/TaskList)
         </p>
       </div>
     )

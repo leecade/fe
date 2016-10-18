@@ -8,6 +8,7 @@ export default projectRootPath => {
     .filter(Boolean)
     .map(resolveApp)
   return {
+    appRoot: projectRootPath,
     appBuild: resolveApp('build'),
     appPublic: resolveApp('public'),
     appHtml: resolveApp('public/index.html'),

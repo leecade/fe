@@ -9,13 +9,20 @@ import clearConsole from '../utils/clearConsole'
 import openBrowser from '../utils/openBrowser'
 import Dashboard from 'webpack-dashboard'
 import DashboardPlugin from 'webpack-dashboard/plugin'
+import { Spinner } from '../utils'
+
+import {
+  mockServer
+} from '../dev/'
+
+const spinner = new Spinner()
 
 let compiler
 
 export default async cmd => {
   const { projectRootPath, defaultConfig } = cmd.opts
-  console.log('projectRootPath:', projectRootPath)
-  console.log('defaultConfig:', defaultConfig)
+  // console.log('projectRootPath:', projectRootPath)
+  // console.log('defaultConfig:', defaultConfig)
 
   const paths = getPaths(projectRootPath)
   const config = webpackDevConfig(paths)
@@ -39,6 +46,8 @@ export default async cmd => {
   if (!shouldChangePort) return
   setupCompiler({ host, port, protocol, paths, config })
   runDevServer({ host, port, protocol, paths, config })
+  // Mock server
+  console.log('hi3')
 }
 
 const setupCompiler = ({ host, port, protocol, config }) => {
@@ -48,7 +57,8 @@ const setupCompiler = ({ host, port, protocol, config }) => {
 }
 
 const runDevServer = ({ host, port, protocol, paths, config }) => {
-  var devServer = new WebpackDevServer(compiler, {
+  spinner.start('wait')
+  const devServer = new WebpackDevServer(compiler, {
     // Silence WebpackDevServer's own logs since they're generally not useful.
     // It will still show compile warnings and errors with this setting.
     clientLogLevel: 'none',
@@ -91,12 +101,17 @@ const runDevServer = ({ host, port, protocol, paths, config }) => {
 
   // Our custom middleware proxies requests to /index.html or a remote API.
   // addMiddleware(devServer)
+  mockServer(devServer.app, paths.appRoot)
 
   // Launch WebpackDevServer.
   devServer.listen(port, (err, result) => {
     if (err) {
       return console.log(err)
     }
+
+    spinner.start('done', {
+      text: `MockServer: http://127.0.0.1:3000`
+    })
 
     // clearConsole()
     // console.log(chalk.cyan('Starting the development server...'))
