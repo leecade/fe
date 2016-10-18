@@ -9,6 +9,23 @@
     "react-dom": "15.3.2",
     "whatwg-fetch": "1.0.0"
   },
+  "devDependencies": {
+    "standard": "^8.1.0"
+  },
+  "standard": {
+    "parser": "babel-eslint",
+    "global": [
+      "fetch",
+      "alert"
+    ],
+    "ignore": [
+      "bin/",
+      "lib/",
+      "mock/",
+      "example/dist/",
+      "node_modules/"
+    ]
+  },
   "scripts": {
     "start": "fe dev",
     "dev": "fe dev",

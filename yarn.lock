@@ -445,7 +445,7 @@ babel-helpers@^6.16.0:
     babel-runtime "^6.0.0"
     babel-template "^6.16.0"
 
-babel-loader@^6.2.5:
+babel-loader:
   version "6.2.5"
   resolved "http://registry.npm.taobao.org/babel-loader/download/babel-loader-6.2.5.tgz#576d548520689a5e6b70c65b85d76af1ffedd005"
   dependencies:

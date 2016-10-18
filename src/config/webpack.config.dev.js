@@ -1,5 +1,5 @@
 // import autoprefixer from 'autoprefixer'
-// import path from 'path'
+import path from 'path'
 import webpack from 'webpack'
 import findCacheDir from 'find-cache-dir'
 import HtmlWebpackPlugin from 'html-webpack-plugin'
@@ -27,8 +27,11 @@ export default paths => ({
     // require.resolve('webpack-dev-server/client') + '?/',
     // require.resolve('webpack/hot/dev-server'),
     // require.resolve('../utils/webpackHotDevClient'),
+    require.resolve('fe/lib/utils/webpackHotDevClient'),
     // We ship a few polyfills by default:
     // require.resolve('./polyfills'),
+    require.resolve('babel-polyfill'),
+    require.resolve('fe/lib/config/polyfills'),
     // Finally, this is your app's code:
     paths.appIndexJs
     // We include the app code last so that if there is a runtime error during
@@ -81,15 +84,19 @@ export default paths => ({
       {
         test: /\.(js|jsx)$/,
         include: paths.appSrc,
-        loader: 'babel',
+        loader: 'babel-loader',
         query: {
+          'presets': [
+            require.resolve('babel-preset-fe')
+          ],
+          'compact': true,
 
           // This is a feature of `babel-loader` for webpack (not Babel itself).
           // It enables caching results in ./node_modules/.cache/react-scripts/
           // directory for faster rebuilds. We use findCacheDir() because of:
           // https://github.com/facebookincubator/create-react-app/issues/483
           cacheDirectory: findCacheDir({
-            name: 'react-scripts'
+            name: 'babel-loader'
           })
         }
       },
@@ -175,5 +182,9 @@ export default paths => ({
     fs: 'empty',
     net: 'empty',
     tls: 'empty'
+  },
+  resolveLoader: {
+    // An array of directory names to be resolved to the current directory
+    modules: ['node_modules', path.resolve(require.resolve('fe/package.json'), '..', 'node_modules')]
   }
 })
