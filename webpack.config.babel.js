@@ -11,6 +11,12 @@ fs.readdirSync(modulesPath)
   .filter(x => ['.bin'].indexOf(x) === -1)
   .forEach(mod => (nodeModules[mod] = 'commonjs ' + mod))
 
+let exportConfigs = {}
+
+fs.readdirSync('./src/config/')
+  .filter(file => file.match(/.*\.js$/))
+  .map(file => (exportConfigs[`config/${file.replace(/\.js$/, '')}`] = `${srcPath}/config/${file}`))
+
 export default {
   target: 'node',
   cache: true,
@@ -19,9 +25,9 @@ export default {
     __filename: false,
     __dirname: false
   },
-  entry: {
+  entry: Object.assign({}, exportConfigs, {
     'index': ['babel-polyfill', path.join(srcPath, 'index.js')]
-  },
+  }),
   output: {
     path: distPath,
     filename: '[name].js',
@@ -30,7 +36,8 @@ export default {
     // publicPath: `http://localhost:${port}/`
   },
   plugins: [
-/*    new webpack.optimize.UglifyJsPlugin({
+    /*
+    new webpack.optimize.UglifyJsPlugin({
       compressor: {
         warnings: false
         // remove `console.*`
@@ -38,7 +45,8 @@ export default {
       output: {
         comments: false
       }
-    })*/
+    })
+    */
   ],
   stats: {
     // Nice colored output
@@ -72,7 +80,7 @@ export default {
 
   resolve: {
     // require('file') => require('file.coffee')
-    extensions: ['', '.js', '.jsx', '.json', '.coffee'],
+    extensions: ['.js', '.jsx', '.json', '.coffee'],
 
     // optimize jquery
     alias: {
