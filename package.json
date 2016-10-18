@@ -1,6 +1,6 @@
 {
   "name": "fe",
-  "description": "Grunt plugin to generate grunt init templates",
+  "description": "React ecosystem tool",
   "version": "0.1.8",
   "homepage": "https://leecade.github.com/fe",
   "author": {
@@ -59,6 +59,7 @@
     "whatwg-fetch": "^1.0.0"
   },
   "devDependencies": {
+    "babel-cli": "^6.16.0",
     "babel-core": "^6.14.0",
     "babel-eslint": "^7.0.0",
     "babel-loader": "^6.2.5",
@@ -67,6 +68,7 @@
     "json-loader": "^0.5.4",
     "power-assert": "^1.4.1",
     "pre-commit": "^1.1.3",
+    "rimraf": "^2.5.4",
     "snazzy": "^5.0.0",
     "standard": "^8.1.0"
   },
@@ -83,12 +85,17 @@
   ],
   "bin": "bin/fe",
   "scripts": {
-    "dev": "webpack --watch",
+    "clean": "rimraf lib",
+    "babel:build": "babel src --out-dir lib",
+    "babel:watch": "babel src --out-dir lib --watch",
+    "dev": "npm run babel:watch",
+    "build": "npm run clean && npm run babel:build",
     "start": "npm run dev",
     "precommit": "git diff --name-only --cached --relative | grep '\\.jsx\\?$' | xargs standard | snazzy; if [ $? -ne 0 ]; then exit 1; fi"
   },
   "pre-commit": {
     "run": [
+      "precommit"
     ],
     "silent": true
   },
