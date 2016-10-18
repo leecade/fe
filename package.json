@@ -89,6 +89,7 @@
   },
   "pre-commit": {
     "run": [
+      "precommit"
     ],
     "silent": true
   },
