@@ -24,4 +24,25 @@ query: {
   ],
 ```
 
+Some ENV failed: `require.resolve`
+
+console.log(module.paths)
+
+```
+[ '/Users/yuji/gitlab/fe/bin/node_modules',
+  '/Users/yuji/gitlab/fe/node_modules',
+  '/Users/yuji/gitlab/node_modules',
+  '/Users/yuji/node_modules',
+  '/Users/node_modules',
+  '/node_modules' ]
+```
+
+fix:
+
+1. `NODE_PATH="/usr/local/lib/node_modules" fe dev`
+
+2. `module.paths = module.paths.concat('/usr/local/lib/node_modules')`
+
+但跨文件没用
+
 - [ ] avoid refresh when js modif

@@ -11,6 +11,8 @@ import Dashboard from 'webpack-dashboard'
 import DashboardPlugin from 'webpack-dashboard/plugin'
 import { Spinner } from '../utils'
 
+console.log(222, module.paths)
+
 import {
   mockServer
 } from '../dev/'

@@ -1,3 +1,5 @@
+module.paths = module.paths.concat('/usr/local/lib/node_modules')
+
 // var program = require('commander')
 import path from 'path'
 import commander from 'commander'

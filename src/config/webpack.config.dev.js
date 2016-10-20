@@ -7,6 +7,8 @@ import CaseSensitivePathsPlugin from 'case-sensitive-paths-webpack-plugin'
 import InterpolateHtmlPlugin from '../utils/InterpolateHtmlPlugin'
 import WatchMissingNodeModulesPlugin from '../utils/WatchMissingNodeModulesPlugin'
 
+console.log(123, module.paths)
+
 // console.log(981, path.resolve('fe/utils/webpackHotDevClient'))
 // console.log(process)
 
