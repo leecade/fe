@@ -3,16 +3,18 @@ import path from 'path'
 
 export default projectRootPath => {
   const resolveApp = relativePath => path.resolve(projectRootPath, relativePath)
+
   const nodePaths = (process.env.NODE_PATH || '')
     .split(process.platform === 'win32' ? ';' : ':')
     .filter(Boolean)
     .map(resolveApp)
+
   return {
     appRoot: projectRootPath,
     appBuild: resolveApp('build'),
     appPublic: resolveApp('public'),
-    appHtml: resolveApp('public/index.html'),
-    appIndexJs: resolveApp('src/index.js'),
+    appTemplate: resolveApp('config/template.ejs'),
+    appEntry: resolveApp('src/index.js'),
     appPackageJson: resolveApp('package.json'),
     appSrc: resolveApp('src'),
     testsSetup: resolveApp('src/setupTests.js'),

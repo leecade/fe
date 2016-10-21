@@ -6,11 +6,10 @@ import HtmlWebpackPlugin from 'html-webpack-plugin'
 import CaseSensitivePathsPlugin from 'case-sensitive-paths-webpack-plugin'
 import InterpolateHtmlPlugin from '../utils/InterpolateHtmlPlugin'
 import WatchMissingNodeModulesPlugin from '../utils/WatchMissingNodeModulesPlugin'
+import moduleResolve from '../utils/moduleResolve'
 
-console.log(123, module.paths)
-
+// console.log(123, module.paths)
 // console.log(981, path.resolve('fe/utils/webpackHotDevClient'))
-// console.log(process)
 
 export default paths => ({
   devtool: 'eval',
@@ -26,18 +25,18 @@ export default paths => ({
     // Note: instead of the default WebpackDevServer client, we use a custom one
     // to bring better experience for Create React App users. You can replace
     // the line below with these two lines if you prefer the stock client:
-    require.resolve('webpack-dev-server/client') + '?http://localhost:3000',
-    require.resolve('webpack/hot/dev-server'),
+    moduleResolve('webpack-dev-server/client') + '?http://localhost:3000',
+    moduleResolve('webpack/hot/dev-server'),
 
-    // require.resolve('../utils/webpackHotDevClient'),
-    // require.resolve('fe/lib/utils/webpackHotDevClient'),
+    // moduleResolve('../utils/webpackHotDevClient'),
+    // moduleResolve('fe/lib/utils/webpackHotDevClient'),
 
     // We ship a few polyfills by default:
-    // require.resolve('./polyfills'),
-    require.resolve('babel-polyfill'),
-    require.resolve('fe/lib/config/polyfills'),
+    // moduleResolve('./polyfills'),
+    moduleResolve('babel-polyfill'),
+    moduleResolve('fe/lib/config/polyfills'),
     // Finally, this is your app's code:
-    paths.appIndexJs
+    paths.appEntry
     // We include the app code last so that if there is a runtime error during
     // initialization, it doesn't blow up the WebpackDevServer client, and
     // changing JS code would still trigger a refresh.
@@ -91,7 +90,7 @@ export default paths => ({
         loader: 'babel-loader',
         query: {
           'presets': [
-            require.resolve('babel-preset-fe')
+            moduleResolve('babel-preset-fe')
           ],
           'compact': true,
 
@@ -162,8 +161,17 @@ export default paths => ({
     }),
     // Generates an `index.html` file with the <script> injected.
     new HtmlWebpackPlugin({
-      inject: true,
-      template: paths.appHtml
+      title: 'TITLE',
+      hash: false,
+      inject: false,
+      template: paths.appTemplate,
+      appMountId: 'root',
+      // Or
+      // appMountIds: ['root', 'app'],
+      window: {
+        ENV: 'prod'
+      }
+      // filename: path.join(paths.appBuild, 'index.html')
     }),
     // Makes some environment variables available to the JS code, for example:
     // if (process.env.NODE_ENV === 'development') { ... }. See `./env.js`.
@@ -189,6 +197,6 @@ export default paths => ({
   },
   resolveLoader: {
     // An array of directory names to be resolved to the current directory
-    modules: ['node_modules', path.resolve(require.resolve('fe/package.json'), '..', 'node_modules')]
+    modules: ['node_modules', path.resolve(moduleResolve('fe/package.json'), '..', 'node_modules')]
   }
 })

@@ -1,6 +1,7 @@
-import path from 'path'
 import webpack from 'webpack'
 import chalk from 'chalk'
+import webpackProdConfig from '../config/webpack.config.prod'
+import getPaths from '../config/getPaths'
 import {
   log,
   wait,
@@ -10,26 +11,20 @@ import {
 const spinner = new Spinner()
 
 export default async cmd => {
-  const cwd = cmd.opts.projectRootPath
+  const { projectRootPath } = cmd.opts
+  // console.log('projectRootPath:', projectRootPath)
+  // console.log('defaultConfig:', defaultConfig)
+
+  const paths = getPaths(projectRootPath)
+  const config = webpackProdConfig(paths)
 
   // Grab the webpack config, from:
   // 1. global/config/webpack.config.build.js
   // 2. local/config/webpack.config.build.js
-  const compiler = webpack({
-    entry: {
-      'index': [path.join(cwd, 'src/index.js')]
-    },
-    output: {
-      path: path.join(cwd, 'dist'),
-      filename: '[name].js',
-      // publicPath: 'http://localhost:3000/static/'
-      publicPath: ''
-      // publicPath: `http://localhost:${port}/`
-    }
-  })
+  const compiler = webpack(config)
 
   spinner.start('running', {
-    text: `Building, root path: ${chalk.magenta.underline(cwd)}`
+    text: `Building, root path: ${chalk.magenta.underline(projectRootPath)}`
   })
 
   await wait(1)

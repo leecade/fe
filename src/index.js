@@ -1,5 +1,3 @@
-module.paths = module.paths.concat('/usr/local/lib/node_modules')
-
 // var program = require('commander')
 import path from 'path'
 import commander from 'commander'
@@ -19,8 +17,6 @@ import generate from './commands/generate'
 import deploy from './commands/deploy'
 import update from './commands/update'
 import upgrade from './commands/upgrade'
-
-import start from './commands/start'
 
 const cwdPath = path.resolve('.')
 let projectRootPath = findRoot('fe.config.js', cwdPath) || findRoot('fe.config.babel.js', cwdPath)
@@ -56,14 +52,6 @@ commander
   .action(dev)
 
 commander
-  // .command('info <dir> [thing]', 'xxx')
-  .command('dd')
-  .description(`TEST ${chalk.yellow.underline('development')} mode, with liveload support`)
-  .alias('ddd')
-  .option('-p, --port', 'Add peppers')
-  .action(start)
-
-commander
   .command('build')
   .description(`${chalk.green.underline('Build')} static assets with dependencies`)
   .alias('b')
@@ -71,9 +59,11 @@ commander
   .action(build)
 
 commander
-  .command('init [ui]')
+  .command('init')
   .description(`Initiate a project with [${chalk.white.underline('empty')}|${chalk.red.underline('cms')}|${chalk.gray.underline('link')}] ui bolierplate`)
-  .action(init)
+  .alias('i')
+  .option('-s, --stock', 'Base on stock')
+  .action(build)
 
 commander
   .command('list')
