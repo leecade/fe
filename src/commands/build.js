@@ -4,7 +4,7 @@ import webpackProdConfig from '../config/webpack.config.prod'
 import getPaths from '../config/getPaths'
 import {
   log,
-  wait,
+  // wait,
   Spinner
 } from '../utils'
 
@@ -27,7 +27,7 @@ export default async cmd => {
     text: `Building, root path: ${chalk.magenta.underline(projectRootPath)}`
   })
 
-  await wait(1)
+  // await wait(1)
 
   compiler.run((err, stats) => {
     spinner.stop()

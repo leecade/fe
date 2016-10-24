@@ -3,6 +3,7 @@ var path = require('path')
 var webpack = require('webpack')
 var HtmlWebpackPlugin = require('html-webpack-plugin')
 var ExtractTextPlugin = require('extract-text-webpack-plugin')
+import findCacheDir from 'find-cache-dir'
 // var InterpolateHtmlPlugin = require('../utils/InterpolateHtmlPlugin')
 // var url = require('url')
 import moduleResolve from '../utils/moduleResolve'
@@ -102,8 +103,21 @@ export default paths => ({
       {
         test: /\.(js|jsx)$/,
         include: paths.appSrc,
-        loader: 'babel'
+        loader: 'babel-loader',
+        query: {
+          'presets': [
+            moduleResolve('babel-preset-fe')
+          ],
+          'compact': true,
 
+          // This is a feature of `babel-loader` for webpack (not Babel itself).
+          // It enables caching results in ./node_modules/.cache/react-scripts/
+          // directory for faster rebuilds. We use findCacheDir() because of:
+          // https://github.com/facebookincubator/create-react-app/issues/483
+          cacheDirectory: findCacheDir({
+            name: 'babel-loader'
+          })
+        }
       },
       // The notation here is somewhat confusing.
       // "postcss" loader applies autoprefixer to our CSS.

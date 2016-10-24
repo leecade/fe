@@ -59,11 +59,11 @@ commander
   .action(build)
 
 commander
-  .command('init')
-  .description(`Initiate a project with [${chalk.white.underline('empty')}|${chalk.red.underline('cms')}|${chalk.gray.underline('link')}] ui bolierplate`)
+  .command('init <project> [boilerplate]')
+  .description(`Initiate a project with the provided bolierplates.\n  Run ${chalk.magenta.underline('fe list')} to see available bolierplates.`)
   .alias('i')
   .option('-s, --stock', 'Base on stock')
-  .action(build)
+  .action(init)
 
 commander
   .command('list')
