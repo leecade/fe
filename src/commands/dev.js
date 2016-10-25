@@ -96,7 +96,10 @@ const runDevServer = ({ host, port, protocol, paths, config }) => {
     },
     // Enable HTTPS if the HTTPS environment variable is set to 'true'
     https: protocol === 'https',
-    host: host
+    host: host,
+
+    // Support browserHistory
+    historyApiFallback: true
   })
 
   // Our custom middleware proxies requests to /index.html or a remote API.
