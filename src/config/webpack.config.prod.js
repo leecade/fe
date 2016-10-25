@@ -84,7 +84,14 @@ export default paths => ({
     alias: {
       // Support React Native Web
       // https://www.smashingmagazine.com/2016/08/a-glimpse-into-the-future-with-react-native-for-web/
-      'react-native': 'react-native-web'
+      // 'react-native': 'react-native-web'
+      components: path.join(paths.appSrc, 'components'),
+      containers: path.join(paths.appSrc, 'containers'),
+      actions: path.join(paths.appSrc, 'actions'),
+      reducers: path.join(paths.appSrc, 'reducers'),
+      common: path.join(paths.appSrc, 'common'),
+      utils: path.join(paths.appSrc, 'utils'),
+      constants: path.join(paths.appSrc, 'constants')
     }
   },
 
@@ -132,6 +139,10 @@ export default paths => ({
       // use the "style" loader inside the async code so CSS from them won't be
       // in the main CSS file.
       {
+        test: /\.module\.css$/,
+        loader: ExtractTextPlugin.extract({notExtractLoader: 'style', loader: 'css?modules&minimize'})
+      },
+      {
         test: /\.css$/,
         // "?-autoprefixer" disables autoprefixer in css-loader itself:
         // https://github.com/webpack/css-loader/issues/281
@@ -144,6 +155,14 @@ export default paths => ({
         // loader: ExtractTextPlugin.extract('style', 'css?-autoprefixer!postcss')
         loader: ExtractTextPlugin.extract({notExtractLoader: 'style', loader: 'css?minimize'})
         // Note: this won't work without `new ExtractTextPlugin()` in `plugins`.
+      },
+      {
+        test: /\.module\.styl$/,
+        loader: ExtractTextPlugin.extract({notExtractLoader: 'style', loader: 'css?modules&minimize!stylus'})
+      },
+      {
+        test: /\.styl$/,
+        loader: ExtractTextPlugin.extract({notExtractLoader: 'style', loader: 'css?minimize!stylus'})
       },
       // JSON is not enabled by default in Webpack but both Node and Browserify
       // allow it implicitly so we also enable it.

@@ -8,6 +8,8 @@ import InterpolateHtmlPlugin from '../utils/InterpolateHtmlPlugin'
 import WatchMissingNodeModulesPlugin from '../utils/WatchMissingNodeModulesPlugin'
 import moduleResolve from '../utils/moduleResolve'
 
+// import NpmInstallPlugin from 'npm-install-webpack-plugin'
+
 // console.log(123, module.paths)
 // console.log(981, path.resolve('fe/utils/webpackHotDevClient'))
 
@@ -68,7 +70,14 @@ export default paths => ({
     alias: {
       // Support React Native Web
       // https://www.smashingmagazine.com/2016/08/a-glimpse-into-the-future-with-react-native-for-web/
-      'react-native': 'react-native-web'
+      'react-native': 'react-native-web',
+      components: path.join(paths.appSrc, 'components'),
+      containers: path.join(paths.appSrc, 'containers'),
+      actions: path.join(paths.appSrc, 'actions'),
+      reducers: path.join(paths.appSrc, 'reducers'),
+      common: path.join(paths.appSrc, 'common'),
+      utils: path.join(paths.appSrc, 'utils'),
+      constants: path.join(paths.appSrc, 'constants')
     }
   },
 
@@ -109,9 +118,21 @@ export default paths => ({
       // In production, we use a plugin to extract that CSS to a file, but
       // in development "style" loader enables hot editing of CSS.
       {
-        test: /\.css$/,
+        test: /\.module\.css$/,
+        loader: 'style!css?modules'
+      },
+      {
+        test: /(?!\.module)\.css$/,
         loader: 'style!css'
       },
+      {
+        test: /\.module\.styl$/,
+        loader: 'style!css?modules!stylus'
+      },
+      // {
+      //   test: /(?!\.module)\.styl$/,
+      //   loader: 'style!css!stylus'
+      // },
       // JSON is not enabled by default in Webpack but both Node and Browserify
       // allow it implicitly so we also enable it.
       {
@@ -187,6 +208,14 @@ export default paths => ({
     // makes the discovery automatic so you don't have to restart.
     // See https://github.com/facebookincubator/create-react-app/issues/186
     new WatchMissingNodeModulesPlugin(paths.appNodeModules)
+
+    // TODO
+    // new NpmInstallPlugin({
+    //   // Use --save or --save-dev
+    //   dev: false,
+    //   // Install missing peerDependencies
+    //   peerDependencies: true
+    // })
   ],
   // Some libraries import Node modules but don't use them in the browser.
   // Tell Webpack to provide empty mocks for them so importing them works.
