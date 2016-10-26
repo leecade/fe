@@ -15,7 +15,7 @@ const list = [{
 }, {
   name: 'templates',
   usage: 'fe init [name]',
-  url: 'https://api.github.com/users/fe-templates/repos'
+  url: 'https://api.github.com/users/fe-boilerplate/repos'
 }]
 
 const spinner = new Spinner()

@@ -182,7 +182,7 @@ export default paths => ({
     }),
     // Generates an `index.html` file with the <script> injected.
     new HtmlWebpackPlugin({
-      title: 'TITLE',
+      title: '',
       hash: false,
       inject: false,
       template: paths.appTemplate,
