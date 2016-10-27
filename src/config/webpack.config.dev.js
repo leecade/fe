@@ -122,17 +122,23 @@ export default paths => ({
         loader: 'style!css?modules'
       },
       {
-        test: /(?!\.module)\.css$/,
+        // test: /(?<!\.module)\.css$/,
+        test (filename) {
+          return /\.css$/.test(filename) && !/\.module\.css$/.test(filename)
+        },
         loader: 'style!css'
       },
       {
         test: /\.module\.styl$/,
         loader: 'style!css?modules!stylus'
       },
-      // {
-      //   test: /(?!\.module)\.styl$/,
-      //   loader: 'style!css!stylus'
-      // },
+      {
+        // test: /(?<!\.module)\.styl$/,
+        test (filename) {
+          return /\.styl$/.test(filename) && !/\.module\.styl$/.test(filename)
+        },
+        loader: 'style!css!stylus'
+      },
       // JSON is not enabled by default in Webpack but both Node and Browserify
       // allow it implicitly so we also enable it.
       {

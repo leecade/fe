@@ -143,7 +143,10 @@ export default paths => ({
         loader: ExtractTextPlugin.extract({notExtractLoader: 'style', loader: 'css?modules&minimize'})
       },
       {
-        test: /\.css$/,
+        // test: /(?<!\.module)\.css$/,
+        test (filename) {
+          return /\.css$/.test(filename) && !/\.module\.css$/.test(filename)
+        },
         // "?-autoprefixer" disables autoprefixer in css-loader itself:
         // https://github.com/webpack/css-loader/issues/281
         // We already have it thanks to postcss. We only pass this flag in
@@ -161,7 +164,10 @@ export default paths => ({
         loader: ExtractTextPlugin.extract({notExtractLoader: 'style', loader: 'css?modules&minimize!stylus'})
       },
       {
-        test: /\.styl$/,
+        // test: /(?<!\.module)\.styl$/,
+        test (filename) {
+          return /\.styl$/.test(filename) && !/\.module\.styl$/.test(filename)
+        },
         loader: ExtractTextPlugin.extract({notExtractLoader: 'style', loader: 'css?minimize!stylus'})
       },
       // JSON is not enabled by default in Webpack but both Node and Browserify
