@@ -14,7 +14,7 @@ import moduleResolve from '../utils/moduleResolve'
 // console.log(981, path.resolve('fe/utils/webpackHotDevClient'))
 
 export default paths => ({
-  devtool: 'eval',
+  devtool: 'cheap-module-eval-source-map',
   // These are the "entry points" to our application.
   // This means they will be the "root" imports that are included in JS bundle.
   // The first two entry points enable "hot" CSS and auto-refreshes for JS.

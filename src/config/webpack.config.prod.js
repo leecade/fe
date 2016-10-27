@@ -50,7 +50,7 @@ var env = getClientEnvironment(publicUrl)
 export default paths => ({
   // Don't attempt to continue if there are any errors.
   bail: true,
-  devtool: 'hidden-source-map',
+  devtool: 'cheap-module-source-map',
   // In production, we only want to load the polyfills and the app code.
   entry: [
     moduleResolve('babel-polyfill'),
