@@ -93,6 +93,8 @@ function setValidateName (opts) {
     var its = validateName(name)
     if (!its.validForNewPackages) {
       var errors = (its.errors || []).concat(its.warnings || [])
+      // Allow contain capital letters?
+      if (errors[0] === 'name can no longer contain capital letters') return true
       return 'Sorry, ' + errors.join(' and ') + '.'
     }
     return true
