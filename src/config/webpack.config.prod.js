@@ -1,13 +1,10 @@
-var path = require('path')
-// var autoprefixer = require('autoprefixer')
-var webpack = require('webpack')
-var HtmlWebpackPlugin = require('html-webpack-plugin')
-var ExtractTextPlugin = require('extract-text-webpack-plugin')
+import path from 'path'
+import webpack from 'webpack'
+import HtmlWebpackPlugin from 'html-webpack-plugin'
+import ExtractTextPlugin from 'extract-text-webpack-plugin'
 import findCacheDir from 'find-cache-dir'
-// var InterpolateHtmlPlugin = require('../utils/InterpolateHtmlPlugin')
-// var url = require('url')
 import moduleResolve from '../utils/moduleResolve'
-// var getClientEnvironment = require('./env')
+// import InterpolateHtmlPlugin from '../utils/InterpolateHtmlPlugin'
 
 /*
 function ensureSlash (path, needsSlash) {

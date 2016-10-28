@@ -9,7 +9,10 @@ import {
 import pkg from '../package.json'
 import defaultConfig from './config'
 
+import clearConsole from './utils/clearConsole'
+
 import dev from './commands/dev'
+import clean from './commands/clean'
 import build from './commands/build'
 import init from './commands/init'
 import list from './commands/list'
@@ -18,19 +21,27 @@ import deploy from './commands/deploy'
 import update from './commands/update'
 import upgrade from './commands/upgrade'
 
+const version = pkg.version
+
+clearConsole()
+console.log(`
+${chalk.blue('   _____ _____')}${chalk.gray('        _           _')}
+${chalk.blue('  |   __|   __|')}${chalk.gray('   ___| |_ ___ ___| |_')}    ${chalk.black('(> ” ” <)')}
+${chalk.blue('  |   __|   __|')}${chalk.gray('  |_ -|  _| . |  _| \'_|')}   ${chalk.black('( =’o\'= )')}
+${chalk.blue('  |__|  |_____|')}${chalk.gray('  |___|_| |___|___|_,_|')}  ${chalk.black(`-(,,)-(,,)-${chalk.white(`v${version}`)}-`)}
+    `)
+
 const cwdPath = path.resolve('.')
 let projectRootPath = findRoot('fe.config.js', cwdPath) || findRoot('fe.config.babel.js', cwdPath)
 
 if (!projectRootPath) {
-  log.warning(`No ${chalk.magenta.underline('fe.config.js')} or ${chalk.magenta.underline('fe.config.babel.js')} found, run ${chalk.magenta.underline('fe init')} first in your project's root folder`)
+  log.warning(`No ${chalk.blue.underline('fe.config.js')} found, run ${chalk.blue.underline('fe init')} first to create your project`)
   projectRootPath = cwdPath
 }
 
-const version = pkg.version
-
 commander
   .version(version || '0.0.1')
-  .description(`A modern development workflow: ${chalk.magenta.underline('fe init')} > ${chalk.magenta.underline('fe dev')} > ${chalk.magenta.underline('fe g route')}`)
+  .description(`A modern development workflow: ${chalk.blue.underline('fe init')} > ${chalk.blue.underline('fe dev')} > ${chalk.blue.underline('fe g route')} > ${chalk.blue.underline('fe build')}`)
 
 // Inject more opts on commander.prototype.opts
 Object.assign(commander.opts, {
@@ -52,22 +63,28 @@ commander
   .action(dev)
 
 commander
+  .command('clean')
+  .description(`Clean build folder`)
+  .alias('c')
+  .action(clean)
+
+commander
   .command('build')
-  .description(`${chalk.green.underline('Build')} static assets with dependencies`)
+  .description(`${chalk.green.underline('Compile')} and compress static assets for deploy`)
   .alias('b')
   .option('-w, --watch', 'Watching mode')
   .action(build)
 
 commander
   .command('init <project> [boilerplate]')
-  .description(`Initiate a project with the provided bolierplates.\n  Run ${chalk.magenta.underline('fe list')} to see available bolierplates.`)
+  .description(`Initiate a project with the provided bolierplates`)
   .alias('i')
   .option('-s, --stock', 'Base on stock')
   .action(init)
 
 commander
   .command('list')
-  .description(`List the components in ${chalk.magenta.underline('fe')}-ecosystem`)
+  .description(`List the components and boilerplates in ${chalk.blue.underline('fe-stack')}`)
   .alias('l')
   .action(list)
 
@@ -90,7 +107,7 @@ commander
 
 commander
   .command('upgrade')
-  .description(`Upgrade ${chalk.magenta.underline('fe')} tool`)
+  .description(`Upgrade ${chalk.blue.underline('fe')} tool`)
   .action(upgrade.bind(null, version))
 
 commander.on('--help', function () {
