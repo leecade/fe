@@ -1,6 +1,5 @@
 import os from 'os'
 import path from 'path'
-import execa from 'execa'
 import download from 'download-git-repo'
 import inquirer from 'inquirer'
 import chalk from 'chalk'
@@ -15,10 +14,11 @@ import generate from '../utils/generate'
 export default async (project, defaultBoilerplate = 'basic') => {
   // if (!project) return log.error(`<project> name must be provided`)
 
+  console.log('')
   const { boilerplate } = await inquirer.prompt({
     type: 'input',
     name: 'boilerplate',
-    message: `Choose your project boilerplate, see: ${chalk.magenta.underline(`fe list`)}`,
+    message: `Choose your project boilerplate, see: ${chalk.blue.underline(`fe list`)}`,
     default: defaultBoilerplate
   })
 
@@ -40,21 +40,12 @@ export default async (project, defaultBoilerplate = 'basic') => {
   const tempPath = `${os.tmpdir()}/fe-${+new Date()}`
 
   download(`fe-boilerplate/${boilerplate}`, tempPath, err => {
+    spinner.stop()
     if (err) return log.error(err)
     process.on('exit', () => rimraf.sync(tempPath))
     const to = path.resolve(project || '.')
     generate(project, tempPath, to, async err => {
       if (err) log.error(err)
-      spinner.start({
-        text: 'Install project dependencies...'
-      })
-      await execa(path.join(require.resolve('yarn/bin/yarn'), '..', 'yarn'), {
-        cwd: to
-      })
-        .catch(err => console.log(err))
-      console.log()
-      spinner.stop()
-      log.success(`Generated ${chalk.blue.underline(project)}`)
     })
   })
 }
