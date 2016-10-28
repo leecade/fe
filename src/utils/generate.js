@@ -7,6 +7,14 @@ import minimatch from 'minimatch'
 import evaluate from './eval'
 import ask from './ask'
 import getOptions from './getOptions'
+import execa from 'execa'
+import chalk from 'chalk'
+import {
+  log,
+  // wait,
+  Spinner
+} from '../utils'
+const spinner = new Spinner()
 
 const filter = (files, filters, data, done) => {
   if (!filters) {
@@ -50,7 +58,7 @@ Handlebars.registerHelper('unless_eq', function (a, b, opts) {
  * @param {Function} done
  */
 
-module.exports = function generate (name, src, dest, done) {
+module.exports = async function generate (name, src, dest, done) {
   var opts = getOptions(name, src)
   var metalsmith = Metalsmith(path.join(src, 'boilerplate'))
   var data = Object.assign(metalsmith.metadata(), {
@@ -68,11 +76,22 @@ module.exports = function generate (name, src, dest, done) {
     .clean(false)
     .source('.') // start from template root instead of `./src` which is Metalsmith's default for `source`
     .destination(dest)
-    .build(function (err) {
-      done(err)
+    .build(async (err) => {
+      if (err) return done(err)
+      spinner.start({
+        text: 'Generate project...'
+      })
+      // spinner.start({
+      //   text: 'Install project dependencies...'
+      // })
+      await execa(path.join(require.resolve('yarn/bin/yarn')), {
+        cwd: dest
+      })
+        .catch(err => log.error(err))
+      spinner.stop()
+      log.success(`Generated ${chalk.blue.underline(name)}`)
       logMessage(opts.completeMessage, data)
     })
-
   return data
 }
 
@@ -140,9 +159,15 @@ function logMessage (message, data) {
     if (err) {
       console.error('\n   Error when rendering template complete message: ' + err.message.trim())
     } else {
-      console.log('\n' + res.split(/\r?\n/g).map(function (line) {
-        return '   ' + line
+      console.log(`\nTo get started:`)
+      console.log('')
+      console.log(`${chalk.gray('  ------------------')}`)
+      console.log('  ' + res.split(/\r?\n/g).map(function (line) {
+        return `${chalk.blue(line)}`
       }).join('\n'))
+      console.log(`${chalk.gray('  ------------------')}`)
+      console.log('')
+      console.log(`More infomation: ${chalk.blue.underline('fe -h')}`)
     }
   })
 }
