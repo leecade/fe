@@ -3,6 +3,7 @@ import path from 'path'
 import chalk from 'chalk'
 import ora from 'ora'
 import findup from 'findup'
+import recursive from 'recursive-readdir'
 
 export class Spinner {
   constructor () {
@@ -112,6 +113,17 @@ export const getSubDirs = parent => new Promise((resolve, reject) => {
     resolve(data.filter(dir => fs.statSync(path.join(parent, dir)).isDirectory()))
   })
 })
+
+export const recursiveDir = (path, ignore = []) => new Promise((resolve, reject) => {
+  recursive(path, ignore, (err, files) => {
+    if (err) return reject(err)
+    resolve(files)
+  })
+})
+
+export const removeFileNameHash = (fileName, path) => fileName
+  .replace(path, '')
+  .replace(/\/?(.*)(\.\w+)(\.js|\.css)/, (match, p1, p2, p3) => p1 + p3)
 
 export class ListenerManager {
   constructor (listener) {
