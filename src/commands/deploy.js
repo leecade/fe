@@ -1,3 +1,3 @@
-export default (cmd) => {
+export default (cmd, env) => {
   console.log('deploy')
 }

@@ -1,6 +1,5 @@
 import rimraf from 'rimraf'
 import chalk from 'chalk'
-import getPaths from '../config/getPaths'
 import {
   log,
   // wait,
@@ -9,13 +8,14 @@ import {
 
 const spinner = new Spinner()
 
-export default (cmd) => {
-  const { projectRootPath } = cmd.opts
-  const paths = getPaths(projectRootPath)
+export default (cmd, { config, appRoot, BUILD_DIR }) => {
+  if (!appRoot) {
+    return log.warning(`No ${chalk.red.underline(config.FE_CONFIG_FILE)} found, make sure ${chalk.blue.underline('cd [project folder]')} or create your project through ${chalk.blue.underline('fe init <project> [boilerplate]')}`)
+  }
   spinner.start('cleanning', {
-    text: `cleanning build path: ${chalk.magenta.underline(paths.appBuild)}`
+    text: `cleanning : ${chalk.cyan.underline(BUILD_DIR)}`
   })
-  rimraf.sync(paths.appBuild + '/*')
+  rimraf.sync(BUILD_DIR + '/*')
   spinner.stop()
-  log.success(`Clean ${chalk.magenta.underline(paths.appBuild)} successfully!`)
+  log.success(`Cleaned ${chalk.cyan.underline(BUILD_DIR)}`)
 }

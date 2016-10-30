@@ -10,24 +10,24 @@ import {
 // Planning to use github group to store list
 const list = [{
   name: 'components',
-  usage: 'npm i [name] -S',
+  usage: `${chalk.dim(`  Usage example: `)}${chalk.underline.blue(`yarn add fe-reset`)} ${chalk.dim('or')} ${chalk.underline.blue('npm i fe-reset -S')}`,
   url: 'https://api.github.com/users/fe-components/repos'
 }, {
-  name: 'templates',
-  usage: 'fe init [name]',
+  name: 'boilerplates',
+  usage: `${chalk.dim(`  Usage example: `)}${chalk.underline.blue(`fe init [projectName] basic`)}`,
   url: 'https://api.github.com/users/fe-boilerplate/repos'
 }]
 
 const spinner = new Spinner()
 
 const reporter = body => {
-  // console.log()
-  // console.log('')
-  log.info(`Available official ${body.reporter_name} (usage: ${chalk.magenta.underline(body.reporter_usage)}):`)
+  log.info(`Available official ${body.reporter_name}:`)
   console.log()
   body.forEach(function (repo) {
     console.log(`  ${chalk.yellow('★')}  ${chalk.blue(repo.name)} - ${repo.description || ''}`)
   })
+  console.log()
+  console.log(body.reporter_usage)
 }
 
 const fetchList = list => new Promise((resolve, reject) => {

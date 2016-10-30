@@ -1,8 +1,9 @@
-import ora from 'ora'
 import execa from 'execa'
 import semver from 'semver'
 import chalk from 'chalk'
-import { log } from '../utils'
+import { log, Spinner } from '../utils'
+
+const spinner = new Spinner()
 
 export const checkVersion = async version => {
   const { stdout } = await execa.shell('npm show fe version')
@@ -12,14 +13,14 @@ export const checkVersion = async version => {
     : false
 }
 
-export default async cmd => {
-  let spinner = ora({
+export default async (cmd, { VERSION }) => {
+  spinner.start({
     text: 'Checking for new version',
     color: 'yellow'
     // spinner: process.argv[2]
-  }).start()
+  })
 
-  const shouldUpgrade = await checkVersion(cmd.opts.version)
+  const shouldUpgrade = await checkVersion(VERSION)
   if (!shouldUpgrade) {
     spinner.stop()
     return log.success('You are using the latest version')

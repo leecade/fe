@@ -1,40 +1,45 @@
+import path from 'path'
 import webpack from 'webpack'
 import WebpackDevServer from 'webpack-dev-server'
-import webpackDevConfig from '../config/webpack.config.dev'
-import getPaths from '../config/getPaths'
 import inquirer from 'inquirer'
 import chalk from 'chalk'
 import detect from 'detect-port'
-import clearConsole from '../utils/clearConsole'
-import openBrowser from '../utils/openBrowser'
 import Dashboard from 'webpack-dashboard'
 import DashboardPlugin from 'webpack-dashboard/plugin'
-import { Spinner } from '../utils'
-
+import clearConsole from '../utils/clearConsole'
+import openBrowser from '../utils/openBrowser'
+import webpackDevConfig from '../config/webpack.config.dev'
+import mockMiddeware from '../middleware/mockMiddeware'
+// import proxyMiddeware from '../middleware/proxyMiddeware'
 import {
-  mockServer
-} from '../dev/'
+  log
+  // Spinner
+} from '../utils'
 
-const spinner = new Spinner()
+// const spinner = new Spinner()
 
 let compiler
 
-export default async cmd => {
-  const { projectRootPath, defaultConfig } = cmd.opts
-  // console.log('projectRootPath:', projectRootPath)
-  // console.log('defaultConfig:', defaultConfig)
+export default async (cmd, env) => {
+  if (!env.appRoot) {
+    return log.warning(`No ${chalk.red.underline(env.config.FE_CONFIG_FILE)} found, make sure ${chalk.blue.underline('cd [project folder]')} or create your project through ${chalk.blue.underline('fe init <project> [boilerplate]')}`)
+  }
 
-  const paths = getPaths(projectRootPath)
-  const config = webpackDevConfig(paths)
-  const host = defaultConfig.HOST
-  const defaultPort = defaultConfig.DEV_SERVER_PORT
-  const protocol = defaultConfig.HTTPS ? 'https' : 'http'
+  // Make default config
+  let config = webpackDevConfig(env)
+
+  // Merge custom config
+  try {
+    config = require(path.join(env.CONFIG_DIR, 'webpack.config.dev.js'))(config, env)
+  } catch (err) {
+  }
+
+  const defaultPort = env.config.DEV_SERVER_PORT
   const port = await detect(defaultPort)
-
   // port is avilable
   if (port === defaultPort) {
-    setupCompiler({ host, port, protocol, paths, config })
-    runDevServer({ host, port, protocol, paths, config })
+    setupCompiler(config, env)
+    runDevServer(config, env)
     return
   }
   clearConsole()
@@ -44,81 +49,57 @@ export default async cmd => {
     message: `${chalk.yellow(`Port ${chalk.underline(`:${defaultPort}`)} is occupied, Would you like to run on ${chalk.underline(`:${port}`)}?`)}`
   })
   if (!shouldChangePort) return
-  setupCompiler({ host, port, protocol, paths, config })
-  runDevServer({ host, port, protocol, paths, config })
-  // Mock server
-  console.log('hi3')
+  env.config.DEV_SERVER_PORT = port
+  setupCompiler(config, env)
+  runDevServer(config, env)
 }
 
-const setupCompiler = ({ host, port, protocol, config }) => {
+const setupCompiler = (config, env) => {
   compiler = webpack(config)
   const dashboard = new Dashboard()
   compiler.apply(new DashboardPlugin(dashboard.setData))
 }
 
-const runDevServer = ({ host, port, protocol, paths, config }) => {
-  spinner.start('wait')
+const runDevServer = (config, env) => {
+  // spinner.start('wait')
   const devServer = new WebpackDevServer(compiler, {
-    // Silence WebpackDevServer's own logs since they're generally not useful.
-    // It will still show compile warnings and errors with this setting.
+    compress: true,
     clientLogLevel: 'none',
-    // By default WebpackDevServer serves physical files from current directory
-    // in addition to all the virtual build products that it serves from memory.
-    // This is confusing because those files won’t automatically be available in
-    // production build folder unless we copy them. However, copying the whole
-    // project directory is dangerous because we may expose sensitive files.
-    // Instead, we establish a convention that only files in `public` directory
-    // get served. Our build script will copy `public` into the `build` folder.
-    // In `index.html`, you can get URL of `public` folder with %PUBLIC_PATH%:
-    // <link rel="shortcut icon" href="%PUBLIC_URL%/favicon.ico">
-    // In JavaScript code, you can access it with `process.env.PUBLIC_URL`.
-    // Note that we only recommend to use `public` folder as an escape hatch
-    // for files like `favicon.ico`, `manifest.json`, and libraries that are
-    // for some reason broken when imported through Webpack. If you just want to
-    // use an image, put it in `src` and `import` it from JavaScript instead.
-    contentBase: paths.appPublic,
-    // Enable hot reloading server. It will provide /sockjs-node/ endpoint
-    // for the WebpackDevServer client so it can learn when the files were
-    // updated. The WebpackDevServer client is included as an entry point
-    // in the Webpack development configuration. Note that only changes
-    // to CSS are currently hot reloaded. JS changes will refresh the browser.
+    contentBase: env.config.publicPath,
     hot: true,
-    // It is important to tell WebpackDevServer to use the same "root" path
-    // as we specified in the config. In development, we always serve from /.
-    publicPath: config.output.publicPath,
-    // WebpackDevServer is noisy by default so we emit custom message instead
-    // by listening to the compiler events with `compiler.plugin` calls above.
+    publicPath: env.config.publicPath,
     quiet: true,
-    // Reportedly, this avoids CPU overload on some systems.
-    // https://github.com/facebookincubator/create-react-app/issues/293
     watchOptions: {
       ignored: /node_modules/
     },
-    // Enable HTTPS if the HTTPS environment variable is set to 'true'
-    https: protocol === 'https',
-    host: host,
+    https: env.config.HTTPS,
+    host: env.config.HOST,
+    proxy: env.config.PROXY,
+    historyApiFallback: {
+      disableDotRule: true,
 
-    // Support browserHistory
-    historyApiFallback: true
+      // Discharge mock rule
+      rewrites: [{
+        from: new RegExp(`^\\${env.config.MOCK_PREFIX}`),
+        to: ctx => ctx.parsedUrl.href
+      }]
+    }
   })
 
-  // Our custom middleware proxies requests to /index.html or a remote API.
-  // addMiddleware(devServer)
-  mockServer(devServer.app, paths.appRoot)
-
-  // Launch WebpackDevServer.
-  devServer.listen(port, (err, result) => {
+  // proxyMiddeware(devServer.app, env.config.PROXY)
+  mockMiddeware(devServer.app, env)
+  devServer.listen(env.config.DEV_SERVER_PORT, (err, result) => {
     if (err) {
       return console.log(err)
     }
 
-    spinner.start('done', {
-      text: `DevServer & MockServer: ${protocol}://${host}:${port}`
-    })
+    // spinner.start('done', {
+    //   text: `DevServer & MockMiddeware: ${env.config.HTTPS ? 'https' : 'http'}://${env.config.HOST}:${env.config.DEV_SERVER_PORT}`
+    // })
 
     // clearConsole()
     // console.log(chalk.cyan('Starting the development server...'))
     // console.log()
-    openBrowser(protocol + '://' + host + ':' + port + '/')
+    openBrowser(`${env.config.HTTPS ? 'https' : 'http'}://${env.config.HOST}:${env.config.DEV_SERVER_PORT}`)
   })
 }
