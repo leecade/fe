@@ -14,7 +14,10 @@ umask 0022 # Ensure permissions are correct (0755 for dirs, 0644 for files)
 tar -xzf pack.tgz --strip 1
 rm -rf pack.tgz
 # npm install --production
-yarn install --production
+# yarn install --production
+
+# with production throw error some modules missing
+yarn install
 rm -rf node_modules/*/test
 cd ..
 
