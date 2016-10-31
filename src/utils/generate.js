@@ -84,10 +84,16 @@ module.exports = async function generate (name, src, dest, done) {
       // spinner.start({
       //   text: 'Install project dependencies...'
       // })
-      await execa(path.join(require.resolve('yarn/bin/yarn')), {
-        cwd: dest
-      })
-        .catch(err => log.error(err))
+      // await execa(path.join(require.resolve('yarn/bin/yarn')), {
+      try {
+        await execa('yarn', ['install'], {
+          cwd: dest
+        })
+      } catch (err) {
+        await execa('npm', ['install'], {
+          cwd: dest
+        })
+      }
       spinner.stop()
       log.success(`Generated ${chalk.blue.underline(name)}`)
       logMessage(opts.completeMessage, data)

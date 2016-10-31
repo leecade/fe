@@ -13,8 +13,9 @@ cd dist
 umask 0022 # Ensure permissions are correct (0755 for dirs, 0644 for files)
 tar -xzf pack.tgz --strip 1
 rm -rf pack.tgz
-# npm install --production
-yarn install --production
+# npm install --production --registry=https://registry.npm.taobao.org
+# yarn install --production
+yarn install
 
 rm -rf node_modules/*/test
 cd ..
