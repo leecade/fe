@@ -65,7 +65,7 @@ const runDevServer = (config, env) => {
   const devServer = new WebpackDevServer(compiler, {
     compress: true,
     clientLogLevel: 'none',
-    contentBase: env.config.publicPath,
+    // contentBase: env.config.publicPath,
     hot: true,
     publicPath: env.config.publicPath,
     quiet: true,
