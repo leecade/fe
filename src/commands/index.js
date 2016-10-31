@@ -55,6 +55,12 @@ export default pkg => {
     .inject('init')
 
   commander
+    .command('test')
+    .description(`Run test cases`)
+    .alias('t')
+    .inject('test')
+
+  commander
     .command('list')
     .description(`List the components and boilerplates in ${chalk.blue.underline('fe-stack')}`)
     .alias('l')
