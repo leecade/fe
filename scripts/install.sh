@@ -37,11 +37,14 @@ install_link() {
         command printf "$SOURCE_STR" >> "$PROFILE"
       fi
     fi
-    source "$PROFILE"
-    printf "$green> Successfully installed! Run `fe -h` get started.$reset\n"
+
+    printf "$green> Successfully installed! Run \"fe -h\" get started.$reset\n"
     printf "$white> If start failed add the following to your correct profile(maybe: $PROFILE):\n"
     printf "   $SOURCE_STR$reset\n"
 
+    $HOME/.fe/bin/fe -v
+    # ignore: `source ～／.zshrc` cause error "autoload command not found"
+    source "$PROFILE" 2> /dev/null
   fi
 }
 
