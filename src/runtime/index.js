@@ -61,7 +61,10 @@ export default async pkg => {
   if (!module.paths.includes(npmRoot)) {
     module.paths = module.paths.concat(npmRoot)
   }
-  const cliRoot = path.join(require.resolve('fe/package.json'), '..')
+
+  // May install at ~/.fe
+  // const cliRoot = path.join(require.resolve('fe/package.json'), '..')
+  const cliRoot = path.join(dirname, '..')
 
   const tmpdir = osenv.tmpdir()
   let home = osenv.home()
@@ -73,8 +76,8 @@ export default async pkg => {
 
   const platform = process.platform
   // Locate the cache dir
-  // ~/.fe on posix, or %AppData%/fe-cache on windows
-  const cacheExtra = platform === 'win32' ? 'fe-cache' : '.fe'
+  // ~/.fe-cache on posix, or %AppData%/fe-cache on windows
+  const cacheExtra = platform === 'win32' ? 'fe-cache' : '.fe-cache'
   const cacheRoot = path.resolve(platform === 'win32' && process.env.APPDATA || home, cacheExtra)
 
   const result = {

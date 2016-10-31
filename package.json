@@ -56,6 +56,7 @@
     "ora": "^0.3.0",
     "osenv": "^0.1.3",
     "postcss-loader": "1.1.0",
+    "pre-commit": "^1.1.3",
     "progress": "^1.1.8",
     "promise": "^7.1.1",
     "react-hot-loader": "^3.0.0-beta.6",
@@ -92,7 +93,6 @@
     "gulp-util": "^3.0.7",
     "gulp-watch": "^4.3.10",
     "power-assert": "^1.4.1",
-    "pre-commit": "^1.1.3",
     "snazzy": "^5.0.0",
     "standard": "^8.5.0"
   },
@@ -117,11 +117,14 @@
     "dev": "gulp watch",
     "build": "gulp",
     "start": "npm run build",
+    "release": "./scripts/release.sh",
     "update": "updtr",
     "precommit": "git diff --name-only --cached --relative | grep '\\.jsx\\?$' | xargs standard | snazzy; if [ $? -ne 0 ]; then exit 1; fi"
   },
   "pre-commit": {
-    "run": ["precommit"],
+    "run": [
+      "precommit"
+    ],
     "silent": true
   },
   "standard": {

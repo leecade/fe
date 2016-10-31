@@ -6,7 +6,7 @@ import updateNotifier from 'update-notifier'
 const version = pkg.version
 
 // Render logo
-console.log(`
+!~process.argv.indexOf('--version') && console.log(`
 ${chalk.blue('   _____ _____')}${chalk.red('        _           _')}
 ${chalk.blue('  |   __|   __|')}${chalk.red('   ___| |_ ___ ___| |_')}    ${chalk.dim('(> ” ” <)')}
 ${chalk.blue('  |   __|   __|')}${chalk.red('  |_ -|  _| . |  _| \'_|')}   ${chalk.dim('( =’o\'= )')}
