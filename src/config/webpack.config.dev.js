@@ -1,7 +1,6 @@
 // import autoprefixer from 'autoprefixer'
 import { join } from 'path'
 import webpack from 'webpack'
-import findCacheDir from 'find-cache-dir'
 import HtmlWebpackPlugin from 'html-webpack-plugin'
 import CaseSensitivePathsPlugin from '../plugins/CaseSensitivePathsPlugin'
 import WatchMissingNodeModulesPlugin from '../plugins/WatchMissingNodeModulesPlugin'
@@ -71,12 +70,7 @@ export default ({
             moduleResolve('babel-preset-fe')
           ],
           'compact': true,
-
-          // Enables caching results in ./node_modules/.cache/babel-loader
-          // directory for faster rebuilds
-          cacheDirectory: findCacheDir({
-            name: 'babel-loader'
-          })
+          cacheDirectory: true
         }
       },
       {

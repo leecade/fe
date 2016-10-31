@@ -1,7 +1,7 @@
 {
   "name": "fe",
   "description": "React ecosystem tool",
-  "version": "0.1.17",
+  "version": "0.1.18",
   "homepage": "https://leecade.github.com/fe",
   "author": {
     "name": "leecade",
@@ -39,7 +39,6 @@
     "extract-text-webpack-plugin": "2.0.0-beta.4",
     "file-loader": "^0.9.0",
     "filesize": "^3.3.0",
-    "find-cache-dir": "^0.1.1",
     "findup": "^0.1.5",
     "fs-extra": "^0.30.0",
     "gulp-optimize-js": "^1.1.0",

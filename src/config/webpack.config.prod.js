@@ -2,7 +2,6 @@ import { join } from 'path'
 import webpack from 'webpack'
 import HtmlWebpackPlugin from 'html-webpack-plugin'
 import ExtractTextPlugin from 'extract-text-webpack-plugin'
-import findCacheDir from 'find-cache-dir'
 import moduleResolve from '../utils/moduleResolve'
 
 export default ({
@@ -75,9 +74,7 @@ export default ({
 
           // Enables caching results in ./node_modules/.cache/babel-loader
           // directory for faster rebuilds
-          cacheDirectory: findCacheDir({
-            name: 'babel-loader'
-          })
+          cacheDirectory: true
         }
       },
       {
