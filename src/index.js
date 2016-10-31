@@ -2,8 +2,10 @@ import chalk from 'chalk'
 import pkg from '../package.json'
 import commands from './commands/'
 import updateNotifier from 'update-notifier'
+
 const version = pkg.version
 
+// Render logo
 console.log(`
 ${chalk.blue('   _____ _____')}${chalk.red('        _           _')}
 ${chalk.blue('  |   __|   __|')}${chalk.red('   ___| |_ ___ ___| |_')}    ${chalk.dim('(> ” ” <)')}

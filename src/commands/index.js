@@ -13,7 +13,7 @@ export default pkg => {
   const commander = new Command()
 
   commander
-    .version('version' || '0.0.1')
+    .version(pkg.version)
     .description(`A modern development workflow: ${chalk.blue.underline('fe init')} > ${chalk.blue.underline('fe dev')} > ${chalk.blue.underline('fe g route')} > ${chalk.blue.underline('fe build')}`)
 
   // Inject more opts on commander.prototype.opts
@@ -97,6 +97,12 @@ export default pkg => {
     console.log('    $ fe dev -h')
     console.log('')
   })
+
+  // Add default behavior `-v` = `-V`
+  const vPos = process.argv.indexOf('-v')
+  if (vPos > -1) {
+    process.argv[vPos] = '-V'
+  }
 
   commander.parse(process.argv)
 

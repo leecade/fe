@@ -1,6 +1,7 @@
 import path from 'path'
 import request from 'request'
 import execa from 'execa'
+import osenv from 'osenv'
 import {
   findRoot,
   saveConfig
@@ -51,11 +52,10 @@ export default async pkg => {
     ? path.resolve(appRoot, relativePath)
     : null
 
-    // Delimit NODE_PATH
+  // Delimit NODE_PATH
   const nodePath = (process.env.NODE_PATH || npmRoot)
     .split(path.delimiter)
     .filter(Boolean)
-    // .map(resolveApp)
 
   // A hack for fix some case module.paths not includes NODE_PATH
   if (!module.paths.includes(npmRoot)) {
@@ -63,14 +63,34 @@ export default async pkg => {
   }
   const cliRoot = path.join(require.resolve('fe/package.json'), '..')
 
+  const tmpdir = osenv.tmpdir()
+  let home = osenv.home()
+  const pid = process.getuid ? process.getuid() : process.pid
+
+  // cross-platform home
+  if (home) process.env.HOME = home
+  else home = path.resolve(tmpdir, 'fe-' + pid)
+
+  const platform = process.platform
+  // Locate the cache dir
+  // ~/.fe on posix, or %AppData%/fe-cache on windows
+  const cacheExtra = platform === 'win32' ? 'fe-cache' : '.fe'
+  const cacheRoot = path.resolve(platform === 'win32' && process.env.APPDATA || home, cacheExtra)
+
   const result = {
     dirname,
     cwd,
     appRoot,
     cliRoot,
     npmRoot,
+    cacheRoot,
     nodePath,
+    platform,
+    tmpdir,
+    home,
+    pid,
     config,
+    user: osenv.user(),
     sharedConfigPath: path.join(cliRoot, 'lib', 'config'),
     internalModulePath: path.join(cliRoot, 'node_modules'),
     VERSION: pkg.version,

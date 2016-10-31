@@ -1,5 +1,29 @@
 # TODO
 
+## Open Source
+
+- [ ] homepage base on hexo
+
+- [ ] release standone install package (7niu?)
+
+- [ ] more platform install way: brew / chocolatey / apt-get / yum / pac
+
+## Build
+
+- [ ] avoid refresh when js file change
+
+## CLI
+
+- [ ] Cache boilerplate in ~/.fe & md5 check update
+
+> So we can use the generator tasks in boilerplate/generator
+
+- [ ] update generator / fe version after init
+
+- [ ] implement optimize-js
+
+- [ ] Design generator task
+
 - [x] find a way to resolve `node_modules/fe/config...` to provider some default config
 
 - [x] Add mock server as a middleware?
@@ -39,10 +63,8 @@ console.log(module.paths)
 
 fix:
 
-1. `NODE_PATH="/usr/local/lib/node_modules" fe dev`
+- `NODE_PATH="/usr/local/lib/node_modules" fe dev`
 
-2. `module.paths = module.paths.concat('/usr/local/lib/node_modules')`
+- `module.paths = module.paths.concat('/usr/local/lib/node_modules')`
 
-但跨文件没用
-
-- [ ] avoid refresh when js modif
+> not work if requird and within another file
