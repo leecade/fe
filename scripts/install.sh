@@ -13,6 +13,9 @@ get_tarball() {
 
   # printf "$cyan> Extracting to ~/.fe...$reset\n"
   mkdir .fe
+
+  # strange, missing some modules after tar, example: replace​-​ext
+  # may tar bug?
   tar zxf fe.tar.gz -C .fe --strip 1 # extract tarball
   rm -rf fe.tar.gz # remove tarball
 }
