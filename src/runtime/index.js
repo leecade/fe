@@ -64,7 +64,7 @@ export default async pkg => {
 
   // May install at ~/.fe
   // const cliRoot = path.join(require.resolve('fe/package.json'), '..')
-  const cliRoot = path.join(dirname, '..')
+  const cliRoot = path.join(dirname, '..', '..')
 
   const tmpdir = osenv.tmpdir()
   let home = osenv.home()
