@@ -15,6 +15,8 @@
 
 # FE Stack
 
+![screenshot](https://gitlab.pro/react/fe/uploads/1493f976f411e120f0ce77fb0a878e6c/image.png)
+
 TODO
 
 ## install
