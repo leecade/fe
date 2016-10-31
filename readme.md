@@ -1,6 +1,6 @@
 <p align="center">
   <a href="https://en.wikipedia.org/wiki/Golden_Retriever">
-    <img alt="react-native-swiper" src="https://gitlab.pro/react/fe/uploads/8786e1093d9673d38c3ec1d4f8948c07/fe-logo.png" width="586">
+    <img alt="react-native-swiper" src="https://gitlab.pro/react/fe/uploads/d32494d5a97e1be002e933a256ccecc1/logo.png" width="586">
   </a>
 </p>
 
