@@ -18,5 +18,5 @@ yarn install --production
 rm -rf node_modules/*/test
 cd ..
 
-tar -cvzf release/fe-v`dist/bin/fe --version`.tar.gz dist/*
+tar -cvzf release/fe-`dist/bin/fe --version`.tar.gz dist/*
 shasum -a 256 release/fe-*.tar.gz

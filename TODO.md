@@ -8,6 +8,8 @@
 
 - [ ] more platform install way: brew / chocolatey / apt-get / yum / pac
 
+> brew require: GitHub repository not notable enough (<20 forks, <20 watchers and <50 stars)
+
 ## Build
 
 - [ ] avoid refresh when js file change

@@ -16,3 +16,27 @@
 # FE Stack
 
 TODO
+
+## install
+
+- OSX / *nix(Debian / Centos ...)
+
+```
+curl https://raw.githubusercontent.com/leecade/fe/master/scripts/install.sh -L -o - | sh
+```
+
+> Recommend Chinese users
+
+- General install through node
+
+```
+npm install fe -g
+```
+
+- OSX
+
+TODO
+
+```
+$ brew install fe
+```
