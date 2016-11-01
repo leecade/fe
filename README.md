@@ -167,35 +167,26 @@ render(<HelloMessage name="Jane" />, document.getElementById('root'))
   "HTTPS": false,
   "DEV_SERVER_PORT": 3000,
   "MOCK_PREFIX": "/_mock",
-  // an example proxy to mock server
-  // you may replace by your back-end server
   "PROXY": {
     "/api": {
       "target": "http://localhost:3000/",
       "pathRewrite": {"^/api": "/_mock"}
-
-      // Or throgh bypass
-      // bypass: req => {
-      //   return req.url.replace(/^\/api(.+)$/, '/_mock$1')
-      // }
     }
   },
-
-  // Auto detect
-  inChina: undefined,
-  FE_CONFIG_FILE: "fe.config.json",
-  BUILD_DIR: "build",
-  CONFIG_DIR: "config",
-  MOCK_DIR: "mock",
-  PUBLIC_DIR: "public",
-  SRC_DIR: "src",
-  EMPTY_FILE: "config/empty.js",
-  TEMPLATE_FILE: "config/template.ejs",
-  ENTRY_FILE: "src/index.js",
-  POLYFILLS_FILE: "config/polyfills.js",
-  HTML_FILE: "public/index.html",
-  TEST_SETUP_FILE: "config/setupTests.js",
-  publicPath: ""
+  "inChina": true,
+  "FE_CONFIG_FILE": "fe.config.json",
+  "BUILD_DIR": "build",
+  "CONFIG_DIR": "config",
+  "MOCK_DIR": "mock",
+  "PUBLIC_DIR": "public",
+  "SRC_DIR": "src",
+  "EMPTY_FILE": "config/empty.js",
+  "TEMPLATE_FILE": "config/template.ejs",
+  "ENTRY_FILE": "src/index.js",
+  "POLYFILLS_FILE": "config/polyfills.js",
+  "HTML_FILE": "public/index.html",
+  "TEST_SETUP_FILE": "config/setupTests.js",
+  "publicPath": ""
 }
 ```
 
@@ -216,7 +207,7 @@ $ fe list
 | component name        | description  |
 | ------------- |:-------------|
 | [fe-reset](https://github.com/fe-components/fe-reset) | CSS reset implementation in FE stack |
-| [fe-datepicker](https://github.com/fe-components/fe-datepicker) | redux+route4+immutable |
+| [fe-datepicker](https://github.com/fe-components/fe-datepicker) | |
 | [fe-upload](https://github.com/fe-components/fe-upload) |  |
 | [fe-table](https://github.com/fe-components/fe-table) |  |
 | [fe-pagination](https://github.com/fe-components/fe-pagination) | |
