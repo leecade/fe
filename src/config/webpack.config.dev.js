@@ -18,7 +18,10 @@ export default ({
   BUILD_DIR,
   SRC_DIR,
   ENTRY_FILE,
-  TEMPLATE_FILE
+  TEMPLATE_FILE,
+  POLYFILLS_FILE,
+  EMPTY_FILE,
+  CUSTOM_POLYFILLS_FILE
 }) => ({
   devtool: 'cheap-module-eval-source-map',
   entry: [
@@ -30,9 +33,9 @@ export default ({
     // moduleResolve('./polyfills'),
     moduleResolve('babel-polyfill', nodePath),
     // default
-    join(sharedConfigPath, 'polyfills.js'),
+    POLYFILLS_FILE,
     // custom
-    join(CONFIG_DIR, 'polyfills.js'),
+    CUSTOM_POLYFILLS_FILE || EMPTY_FILE,
     ENTRY_FILE
   ],
   output: {

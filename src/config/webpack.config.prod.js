@@ -14,7 +14,10 @@ export default ({
   sharedConfigPath,
   internalModulePath,
   nodePath,
-  publicPath
+  publicPath,
+  POLYFILLS_FILE,
+  EMPTY_FILE,
+  CUSTOM_POLYFILLS_FILE
 }) => ({
   // Don't attempt to continue if there are any errors.
   bail: true,
@@ -22,9 +25,9 @@ export default ({
   entry: [
     moduleResolve('babel-polyfill', nodePath),
     // default
-    join(sharedConfigPath, 'polyfills.js'),
+    POLYFILLS_FILE,
     // custom
-    join(CONFIG_DIR, 'polyfills.js'),
+    CUSTOM_POLYFILLS_FILE || EMPTY_FILE,
     ENTRY_FILE
   ],
   output: {

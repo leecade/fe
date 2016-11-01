@@ -4,7 +4,8 @@ import execa from 'execa'
 import osenv from 'osenv'
 import {
   findRoot,
-  saveConfig
+  saveConfig,
+  pathExists
 } from '../utils/fs'
 import defaultConfig from '../config/default'
 
@@ -104,11 +105,41 @@ export default async pkg => {
     YARN_VERSION: execa.shellSync('yarn -V').stdout
   }
 
-  keys(config).map(key => {
+  keys(config).map(async key => {
     if (key === 'ENTRY_FILE' && Array.isArray(config[key])) {
       result[key] = config[key].map(entry => resolveApp(entry))
-    } else if (/_DIR|_FILE/.test(key)) result[key] = resolveApp(config[key])
+    } else if (/(_DIR|_FILE)$/.test(key)) {
+      result[key] = resolveApp(config[key])
+      if (/_DIR$/.test(key) && !await pathExists(result[key])) {
+        result[key] = null
+      }
+    }
   })
+
+  result.EMPTY_FILE = path.join(result.sharedConfigPath, '..', config.EMPTY_FILE)
+
+  // Check whether ENTRY_FILE exists
+  if (!Array.isArray(result.ENTRY_FILE) && !await pathExists(result.ENTRY_FILE)) {
+    result.ENTRY_FILE = null
+  }
+
+  // Decided to choose default / custom TEST_SETUP_FILE
+  if (!await pathExists(result.TEST_SETUP_FILE)) {
+    result.TEST_SETUP_FILE = path.join(result.sharedConfigPath, '..', config.TEST_SETUP_FILE)
+  }
+
+  // Decided to choose default / custom TEMPLATE_FILE
+  if (!await pathExists(result.TEMPLATE_FILE)) {
+    result.TEMPLATE_FILE = path.join(result.sharedConfigPath, '..', config.TEMPLATE_FILE)
+  }
+
+  // There are may two polyfills
+  result.CUSTOM_POLYFILLS_FILE = result.POLYFILLS_FILE
+  result.POLYFILLS_FILE = path.join(result.sharedConfigPath, '..', config.POLYFILLS_FILE)
+
+  if (!await pathExists(result.CUSTOM_POLYFILLS_FILE)) {
+    result.CUSTOM_POLYFILLS_FILE = null
+  }
 
   if (customConfig.inChina === undefined) {
     config.inChina = await isInChina()

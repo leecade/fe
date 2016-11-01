@@ -4,6 +4,7 @@ import WebpackDevServer from 'webpack-dev-server'
 import inquirer from 'inquirer'
 import chalk from 'chalk'
 import detect from 'detect-port'
+import { copySync } from 'fs-extra'
 import Dashboard from 'webpack-dashboard'
 import DashboardPlugin from 'webpack-dashboard/plugin'
 import clearConsole from '../utils/clearConsole'
@@ -11,7 +12,9 @@ import openBrowser from '../utils/openBrowser'
 import webpackDevConfig from '../config/webpack.config.dev'
 import mockMiddeware from '../middleware/mockMiddeware'
 // import proxyMiddeware from '../middleware/proxyMiddeware'
+import { watch, touchp, pathExists, mkdirp } from '../utils/fs'
 import {
+  // wait,
   log
   // Spinner
 } from '../utils'
@@ -19,10 +22,34 @@ import {
 // const spinner = new Spinner()
 
 let compiler
+const syncPublic = env => env.PUBLIC_DIR && copySync(env.PUBLIC_DIR, env.BUILD_DIR, {
+  dereference: true,
+  filter: file => file !== env.HTML_FILE
+})
 
 export default async (cmd, env) => {
   if (!env.appRoot) {
     return log.warning(`No ${chalk.red.underline(env.config.FE_CONFIG_FILE)} found, make sure ${chalk.blue.underline('cd [project folder]')} or create your project through ${chalk.blue.underline('fe init <project> [boilerplate]')}`)
+  }
+
+  if (!env.ENTRY_FILE) {
+    const { genEntry } = await inquirer.prompt({
+      message: `No entry file found, Would you want to auto generate ${chalk.red.underline(env.config.ENTRY_FILE)}?`,
+      name: 'genEntry',
+      default: true,
+      type: 'confirm'
+    })
+    if (!genEntry) return
+    env.ENTRY_FILE = path.join(env.appRoot, env.config.ENTRY_FILE)
+    env.SRC_DIR = env.SRC_DIR || path.join(env.appRoot, env.config.SRC_DIR)
+    await touchp(env.ENTRY_FILE)
+  }
+
+  // Make sure BUILD_DIR exist
+  const buildDirExist = await pathExists(env.BUILD_DIR)
+  if (!buildDirExist) {
+    env.BUILD_DIR = path.join(env.appRoot, env.config.BUILD_DIR)
+    await mkdirp(env.BUILD_DIR)
   }
 
   // Make default config
@@ -60,6 +87,16 @@ const setupCompiler = (config, env) => {
   compiler.apply(new DashboardPlugin(dashboard.setData))
 }
 
+const setupSyncPublic = env => {
+  syncPublic(env)
+
+  // TODO:
+  // maybe should handle delete in dev mode
+  watch(env.PUBLIC_DIR, () => {
+    syncPublic(env)
+  })
+}
+
 const runDevServer = (config, env) => {
   // spinner.start('wait')
   const devServer = new WebpackDevServer(compiler, {
@@ -87,7 +124,11 @@ const runDevServer = (config, env) => {
   })
 
   // proxyMiddeware(devServer.app, env.config.PROXY)
-  mockMiddeware(devServer.app, env)
+  env.MOCK_DIR && mockMiddeware(devServer.app, env)
+
+  // Watch public => static
+  env.PUBLIC_DIR && setupSyncPublic(env)
+
   devServer.listen(env.config.DEV_SERVER_PORT, (err, result) => {
     if (err) {
       return console.log(err)

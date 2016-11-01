@@ -2,15 +2,36 @@ import path from 'path'
 import webpack from 'webpack'
 import chalk from 'chalk'
 import Listr from 'listr'
+import inquirer from 'inquirer'
 import webpackProdConfig from '../config/webpack.config.prod'
 import rimraf from 'rimraf'
 import { copySync } from 'fs-extra'
 import { calcSizeMap, printFileSizes } from '../build/reporter'
 import { log } from '../utils'
+import { pathExists, mkdirp, touchp } from '../utils/fs'
 
 export default async (cmd, env) => {
   if (!env.appRoot) {
     return log.warning(`No ${chalk.red.underline(env.config.FE_CONFIG_FILE)} found, make sure ${chalk.blue.underline('cd [project folder]')} or create your project through ${chalk.blue.underline('fe init <project> [boilerplate]')}`)
+  }
+
+  if (!env.ENTRY_FILE) {
+    const { genEntry } = await inquirer.prompt({
+      message: `No entry file found, Would you want to auto generate ${chalk.red.underline(env.config.ENTRY_FILE)}?`,
+      name: 'genEntry',
+      default: true,
+      type: 'confirm'
+    })
+    if (!genEntry) return
+    env.ENTRY_FILE = path.join(env.appRoot, env.config.ENTRY_FILE)
+    env.SRC_DIR = env.SRC_DIR || path.join(env.appRoot, env.config.SRC_DIR)
+    await touchp(env.ENTRY_FILE)
+  }
+  // Make sure BUILD_DIR exist
+  const buildDirExist = await pathExists(env.BUILD_DIR)
+  if (!buildDirExist) {
+    env.BUILD_DIR = path.join(env.appRoot, env.config.BUILD_DIR)
+    await mkdirp(env.BUILD_DIR)
   }
 
   // Make default config
@@ -48,10 +69,12 @@ export default async (cmd, env) => {
         }))
     }, {
       title: 'Copy public folder',
-      task: () => copySync(env.PUBLIC_DIR, env.BUILD_DIR, {
-        dereference: true,
-        filter: file => file !== env.HTML_FILE
-      })
+      task: () => {
+        env.PUBLIC_DIR && copySync(env.PUBLIC_DIR, env.BUILD_DIR, {
+          dereference: true,
+          filter: file => file !== env.HTML_FILE
+        })
+      }
     }])
   }])
 

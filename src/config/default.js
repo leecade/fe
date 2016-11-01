@@ -26,9 +26,11 @@ module.exports = {
   MOCK_DIR: 'mock',
   PUBLIC_DIR: 'public',
   SRC_DIR: 'src',
+  EMPTY_FILE: 'config/empty.js',
   TEMPLATE_FILE: 'config/template.ejs',
   ENTRY_FILE: 'src/index.js',
+  POLYFILLS_FILE: 'config/polyfills.js',
   HTML_FILE: 'public/index.html',
-  TEST_SETUP_FILE: 'src/setupTests.js',
+  TEST_SETUP_FILE: 'config/setupTests.js',
   publicPath: ''
 }
