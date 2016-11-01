@@ -13,6 +13,8 @@
   <a href="https://gitter.im/leecade/fe?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge"><img alt="Join the chat" src="https://badges.gitter.im/leecade/fe.svg"></a>
 </p>
 
+> LOGO means: The [golden retriever](https://en.wikipedia.org/wiki/Golden_Retriever) is a professional guard dog, gentle temperament, strongly, also very smart and friendly to their caregivers.
+
 ----
 
 > :beer: Basic available, still work in progress, put my [work plan](TODO.md) here.
@@ -35,8 +37,6 @@ $ yarn release # change the tar download url if you have another one
 # FE Stack
 
 ![screenshot](https://gitlab.pro/react/fe/uploads/1493f976f411e120f0ce77fb0a878e6c/image.png)
-
-> LOGO means: The [golden retriever](https://en.wikipedia.org/wiki/Golden_Retriever) is a professional guard dog, gentle temperament, strongly, also very smart and friendly to their caregivers.
 
 ## Motivation
 
