@@ -9,7 +9,7 @@ white="\e[0;37m"
 
 get_tarball() {
   printf "$cyan> Downloading tarball...$reset\n"
-  curl -L -o fe.tar.gz "http://fe-1251421185.costj.myqcloud.com/fe-0.1.18.tar.gz" >/dev/null
+  curl -L -o fe.tar.gz "http://fe-1251421185.costj.myqcloud.com/latest.tar.gz" >/dev/null
 
   # printf "$cyan> Extracting to ~/.fe...$reset\n"
   mkdir .fe
