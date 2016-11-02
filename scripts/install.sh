@@ -24,6 +24,8 @@ install_link() {
   printf "$cyan> Adding to \$PATH...$reset\n"
   PROFILE="$(detect_profile)"
   SOURCE_STR="\nexport PATH=\"\$HOME/.fe/bin:\$PATH\"\n"
+  local SHELLTYPE
+  SHELLTYPE="$(basename "/$SHELL")"
 
   if [ -z "${PROFILE-}" ] ; then
     printf "$red> Profile not found. Tried ${PROFILE} (as defined in \$PROFILE), ~/.bashrc, ~/.bash_profile, ~/.zshrc, and ~/.profile.\n"
@@ -47,7 +49,8 @@ install_link() {
 
     $HOME/.fe/bin/fe -v
     # ignore: `source ～／.zshrc` cause error "autoload command not found"
-    source "$PROFILE" 2> /dev/null
+    # source "$PROFILE" 2> /dev/null
+    command "$SHELLTYPE"
   fi
 }
 
@@ -98,12 +101,14 @@ reset() {
 }
 
 install() {
-  printf "${white}Installing FE!$reset\n"
+  printf "${white}Installing FE...$reset\n"
 
   if [ -d "$HOME/.fe" ]; then
-    printf "$red> ~/.fe already exists, possibly from a past FE install.$reset\n"
-    printf "$red> Remove it (rm -rf ~/.fe) and run this script again.$reset\n"
-    exit 0
+    # printf "$red> ~/.fe already exists, possibly from a past FE install.$reset\n"
+    # printf "$red> Remove it (rm -rf ~/.fe) and run this script again.$reset\n"
+    # exit 0
+    # just remove it quietly
+    rm -rf $HOME/.fe
   fi
 
   get_tarball
