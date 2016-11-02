@@ -19,6 +19,13 @@
 
 > :beer: Basic available, still work in progress, put my [work plan](TODO.md) here.
 
+### BETA VERSION CHANGELOG
+
+- [0.1.20]
+  + [default config] Change default public path to `/` to fixes bundle url error in child-routing + browser router
+  + [bug] Fixes default behavior of touch to avoid `undefined` content
+  + [install script] Improve double refresh environment variable
+
 ## Developer Guide
 
 ```sh
