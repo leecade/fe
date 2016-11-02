@@ -32,5 +32,5 @@ module.exports = {
   POLYFILLS_FILE: 'config/polyfills.js',
   HTML_FILE: 'public/index.html',
   TEST_SETUP_FILE: 'config/setupTests.js',
-  publicPath: ''
+  publicPath: '/'
 }
