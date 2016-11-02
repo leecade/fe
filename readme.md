@@ -21,10 +21,13 @@
 
 ### BETA VERSION CHANGELOG
 
+- [0.1.21]
+  + [Improve] Add auto publish hook
+
 - [0.1.20]
   + [default config] Change default public path to `/` to fixes bundle url error in child-routing + browser router
-  + [bug] Fixes default behavior of touch to avoid `undefined` content
-  + [install script] Improve double refresh environment variable
+  + [Bug] Fixes default behavior of touch to avoid `undefined` content
+  + [Install script] Improve double refresh environment variable
 
 ## Developer Guide
 
@@ -33,8 +36,7 @@ $ git clone
 $ yarn # or npm i
 $ yarn dev
 $ npm link # you got the global `fe`
-# change package.json version then
-$ npm publish
+$ npm publish # auto bump version
 # build the release pkg
 $ yarn release # change the tar download url if you have another one
 ```
