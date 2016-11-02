@@ -49,7 +49,7 @@ install_link() {
 
     $HOME/.fe/bin/fe -v
     # ignore: `source ～／.zshrc` cause error "autoload command not found"
-    # source "$PROFILE" 2> /dev/null
+    source "$PROFILE" 2> /dev/null
     command "$SHELLTYPE"
   fi
 }
