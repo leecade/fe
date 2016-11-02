@@ -122,6 +122,7 @@
     "start": "npm run build",
     "release": "./scripts/release.sh",
     "update": "updtr",
+    "prepublish": "npm run build && npm version patch -m \"bump version\"",
     "precommit": "git diff --name-only --cached --relative | grep '\\.jsx\\?$' | xargs standard | snazzy; if [ $? -ne 0 ]; then exit 1; fi"
   },
   "pre-commit": {
