@@ -2,5 +2,14 @@
   "presets": [
     "fe"
   ],
+  "env": {
+      "development": {
+        "sourceMaps": "inline"
+      }
+  },
+  "plugins": [
+    "espower",
+    "transform-runtime"
+  ],
   "compact": true
 }

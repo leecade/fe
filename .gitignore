@@ -5,3 +5,5 @@ lib/
 yarn-error.log
 release/
 dist/
+coverage
+.nyc_output

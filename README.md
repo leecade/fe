@@ -36,6 +36,13 @@ $ git clone
 $ yarn # or npm i
 $ yarn dev
 $ npm link # you got the global `fe`
+```
+
+release
+
+```sh
+$ npm run build
+$ npm version patch -m "bump version"
 $ npm publish # auto bump version
 # build the release pkg
 $ yarn release # change the tar download url if you have another one

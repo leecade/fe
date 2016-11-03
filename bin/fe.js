@@ -7,5 +7,5 @@
 // DEBUG=fe fe
 // DEBUG=on fe
 const debug = require('debug')('all')
-require('../lib')
 debug.enabled && require('time-require')
+require('../lib').default()
