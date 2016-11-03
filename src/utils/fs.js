@@ -58,7 +58,7 @@ export const mkdirp = (path, opts) => new Promise((resolve, reject) => mkdirP(pa
 export const touchp = async (filepath, force) => {
   await mkdirp(dirname(filepath))
   const exist = await pathExists(filepath)
-  !(exist && !force) && fs.writeFileSync(filepath)
+  !(exist && !force) && fs.writeFileSync(filepath, '')
   // fs.closeSync(fs.openSync(filepath, 'w'))
 }
 
