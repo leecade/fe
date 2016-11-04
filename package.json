@@ -121,8 +121,8 @@
     "fe": "./bin/fe.js"
   },
   "scripts": {
-    "test": "nyc ava",
-    "test:win": "nyc ava",
+    "test": "npm run build && nyc ava",
+    "test:win": "npm run build && nyc ava",
     "test:watch": "ava --watch",
     "coverage": "nyc report",
     "coverage:report": "nyc report --reporter=text-lcov | coveralls",
@@ -173,10 +173,10 @@
     "babel": "inherit"
   },
   "nyc": {
-    "lines": 90,
-    "statements": 90,
-    "functions": 90,
-    "branches": 90,
+    "lines": 0,
+    "statements": 0,
+    "functions": 0,
+    "branches": 0,
     "include": [
       "src/**/*.js",
       "bin/**/*.js"

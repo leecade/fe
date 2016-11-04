@@ -3,7 +3,7 @@ machine:
     version: 4
   pre:
     # fixes #12
-    - sudo ln -s /usr/bin/nodejs /usr/bin/node
+    - [ -L /usr/bin/nodejs ] && sudo ln -sf /usr/bin/nodejs /usr/bin/node
 dependencies:
   override:
     - npm install -g npm@3.x-latest
