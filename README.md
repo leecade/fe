@@ -4,14 +4,14 @@
   </a>
 </p>
 <p align="center">
-  <a href="https://circleci.com/gh/leecade/fe"><img alt="Circleci" src="https://img.shields.io/circleci/token/72d6756394f8489fe6d870e3fb71f2f3658a3518/project/github/leecade/fe/master.svg?style=flat-square"></a>
-  <a href="https://ci.appveyor.com/project/leecade/fe"><img alt="Appveyor" src="https://img.shields.io/appveyor/ci/leecade/fe/master.svg?style=flat-square"></a>
-  <a href="https://coveralls.io/github/leecade/fe"><img alt="Coveralls" src="https://img.shields.io/coveralls/leecade/fe.svg?style=flat-square"></a>
   <a href="http://standardjs.com/"><img alt="JavaScript Style Guide" src="https://img.shields.io/badge/code%20style-standard-brightgreen.svg?style=flat-square"></a>
   <a href="https://npmjs.org/package/fe"><img alt="npm version" src="http://img.shields.io/npm/v/fe.svg?style=flat-square"></a>
   <a href="https://npmjs.org/package/fe"><img alt="npm version" src="http://img.shields.io/npm/dm/fe.svg?style=flat-square"></a>
-  <a href="https://fe-stack.slack.com/"><img alt="Slack" src="https://img.shields.io/badge/slack-3/8-pink.svg?style=flat-square"></a>
+  <a href="https://circleci.com/gh/leecade/fe"><img alt="Circleci" src="https://img.shields.io/circleci/token/72d6756394f8489fe6d870e3fb71f2f3658a3518/project/github/leecade/fe/master.svg?style=flat-square"></a>
+  <a href="https://ci.appveyor.com/project/leecade/fe"><img alt="Appveyor" src="https://img.shields.io/appveyor/ci/leecade/fe/master.svg?style=flat-square"></a>
+  <a href="https://coveralls.io/github/leecade/fe"><img alt="Coveralls" src="https://img.shields.io/coveralls/leecade/fe.svg?style=flat-square"></a>
   <a href="LICENSE-MIT"><img alt="LICENSE-MIT" src="https://img.shields.io/npm/l/fe.svg?style=flat-square"></a>
+  <a href="https://fe-stack.slack.com/"><img alt="Slack" src="https://img.shields.io/badge/slack-3/8-pink.svg?style=flat-square"></a>
 </p>
 
 > LOGO meaning: The [golden retriever](https://en.wikipedia.org/wiki/Golden_Retriever) is a professional guard dog with a gentle temperament, strong, very smart and friendly to their caregivers.
