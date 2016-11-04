@@ -8,6 +8,11 @@ dependencies:
   override:
     - npm install -g npm@3.x-latest
     - npm install --unsafe-perm
-deployment:
-  coverage:
+test:
+  post:
     - npm run coverage:report
+# deployment:
+general:
+  artifacts:
+    - "release"
+    - ".nyc_output"
