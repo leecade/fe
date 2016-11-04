@@ -122,8 +122,8 @@
     "fe": "./bin/fe.js"
   },
   "scripts": {
-    "test": "npm run build && nyc --all ava",
-    "test:win": "npm run build && nyc --all ava",
+    "test": "npm run lint && npm run build && nyc --all ava",
+    "test:win": "npm run lint && npm run build && nyc --all ava",
     "test:watch": "ava --watch",
     "coverage": "nyc report",
     "coverage:report": "nyc report --reporter=text-lcov | coveralls",
@@ -134,6 +134,7 @@
     "build": "cross-env BABEL_ENV=production gulp",
     "dev": "npm run build && npm run watch",
     "start": "npm run build",
+    "lint": "standard",
     "release": "./scripts/release.sh",
     "update": "updtr",
     "precommit": "git diff --name-only --cached --relative | grep '\\.jsx\\?$' | xargs standard | snazzy; if [ $? -ne 0 ]; then exit 1; fi"
@@ -152,8 +153,9 @@
     ],
     "ignore": [
       "lib/",
+      "*.test.js",
       "src/plugins/",
-      "example/dist/",
+      "example/build",
       "node_modules/"
     ]
   },
