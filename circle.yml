@@ -6,4 +6,5 @@ machine:
     - sudo ln -s /usr/bin/nodejs /usr/bin/node
 dependencies:
   override:
+    - npm install -g npm@3.x-latest
     - npm install
