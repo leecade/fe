@@ -2,9 +2,12 @@ machine:
   node:
     version: 4
   pre:
-    # #1
+    # fixes #12
     - sudo ln -s /usr/bin/nodejs /usr/bin/node
 dependencies:
   override:
     - npm install -g npm@3.x-latest
-    - npm install
+    - npm install --unsafe-perm
+deployment:
+  coverage:
+    - npm run coverage:report
