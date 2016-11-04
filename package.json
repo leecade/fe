@@ -30,6 +30,7 @@
     "connect-history-api-fallback": "^1.3.0",
     "consolidate": "^0.14.1",
     "coveralls": "^2.11.14",
+    "cross-env": "^3.1.3",
     "css-loader": "^0.25.0",
     "debug": "^2.2.0",
     "deep-equal": "^1.0.1",
@@ -121,8 +122,8 @@
     "fe": "./bin/fe.js"
   },
   "scripts": {
-    "test": "npm run build && nyc ava",
-    "test:win": "npm run build && nyc ava",
+    "test": "npm run build && nyc --all ava",
+    "test:win": "npm run build && nyc --all ava",
     "test:watch": "ava --watch",
     "coverage": "nyc report",
     "coverage:report": "nyc report --reporter=text-lcov | coveralls",
@@ -130,7 +131,7 @@
     "babel:build": "babel src --out-dir lib",
     "babel:watch": "babel src --out-dir lib --watch",
     "watch": "npm run test:watch & gulp watch",
-    "build": "BABEL_ENV=production gulp",
+    "build": "cross-env BABEL_ENV=production gulp",
     "dev": "npm run build && npm run watch",
     "start": "npm run build",
     "release": "./scripts/release.sh",
@@ -178,8 +179,8 @@
     "functions": 0,
     "branches": 0,
     "include": [
-      "src/**/*.js",
-      "bin/**/*.js"
+      "src/**/*.{js|jsx}",
+      "bin/**/*.{js|jsx}"
     ],
     "exclude": [
       "src/**/*.spec.js",
@@ -193,6 +194,7 @@
       "babel-core/register"
     ],
     "extension": [
+      ".js",
       ".jsx"
     ],
     "cache": true,
