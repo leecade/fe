@@ -13,11 +13,11 @@
   <a href="https://gitter.im/leecade/fe?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge"><img alt="Join the chat" src="https://badges.gitter.im/leecade/fe.svg"></a>
 </p>
 
-> LOGO means: The [golden retriever](https://en.wikipedia.org/wiki/Golden_Retriever) is a professional guard dog, gentle temperament, strongly, also very smart and friendly to their caregivers.
+> LOGO meaning: The [golden retriever](https://en.wikipedia.org/wiki/Golden_Retriever) is a professional guard dog with a gentle temperament, strong, very smart and friendly to their caregivers.
 
 ----
 
-> :beer: Basic available, still work in progress, put my [work plan](TODO.md) here.
+> :beer: Basic available, still work in progress. See my [work plan](TODO.md) here.
 
 ### BETA VERSION CHANGELOG
 
@@ -25,7 +25,7 @@
   + [Improve] Add auto publish hook
 
 - [0.1.20]
-  + [default config] Change default public path to `/` to fixes bundle url error in child-routing + browser router
+  + [default config] Change default public path to `/` to fix bundle url error in child-routing + browser router
   + [Bug] Fixes default behavior of touch to avoid `undefined` content
   + [Install script] Improve double refresh environment variable
 
@@ -96,24 +96,24 @@ Just create a json file named `fe.config.json`(labeling the root location of you
 $ touch fe.config.json
 ```
 
-That's all that matters, let's get started:
+That's all that matters, now let's get started:
 
 ```sh
 $ fe d # alias `fe dev`
 ```
 
-> Type Enter if be requested to generate entry file
+> Type Enter if requested to generate entry file
 
-Now we are in dev mode, you may edit the `src/index.js` with liveload supports.
+Now that we are in dev mode, you may edit the `src/index.js` with liveload supports.
 
-Next step, we initialize React environment:
+Next, we initialize React environment:
 
 ```sh
 $ npm init -y
 $ npm i react react-dom -S
 ```
 
-Follow the [react tutorial](https://facebook.github.io/react/), we put some code in `src/index.js`
+Following the [react tutorial](https://facebook.github.io/react/), we put some code in `src/index.js`
 
 ```jsx
 import React, { Component } from 'react'
@@ -129,7 +129,7 @@ class HelloMessage extends Component {
 render(<HelloMessage name="Jane" />, document.getElementById('root'))
 ```
 
-Great! It works, Next Step, We try to fetch some mock data:
+Great! It works. Next Step: we fetch some mock data:
 
 ```sh
 $ mkdir -p mock/TaskList
