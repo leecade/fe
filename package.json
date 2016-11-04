@@ -109,6 +109,9 @@
   "engines": {
     "npm": "3.x"
   },
+  "config": {
+    "unsafe-perm": true
+  },
   "main": "lib/index.js",
   "files": [
     "bin",
