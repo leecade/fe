@@ -61,7 +61,12 @@ TODO
 
 ## Install
 
-- *nix(OSX / Debian / Centos ...)
+Depends on
+
+ - node 4+
+ - npm 3+
+
+### *nix(OSX / Debian / Centos ...)
 
 ```
 curl https://raw.githubusercontent.com/leecade/fe/master/scripts/install.sh -L -o - | sh
@@ -69,13 +74,13 @@ curl https://raw.githubusercontent.com/leecade/fe/master/scripts/install.sh -L -
 
 > Recommend Chinese users
 
-- General install through node
+### General install through node
 
 ```
 npm install fe -g
 ```
 
-- OSX
+### OSX
 
 TODO
 
@@ -83,9 +88,13 @@ TODO
 $ brew install fe
 ```
 
-- Windows
+> use `curl https://raw.githubusercontent.com/leecade/fe/master/scripts/install.sh -L -o - | sh` fallback first
+
+### Windows
 
 TODO
+
+> use `npm i -g fe` fallback first
 
 ## Get started
 
