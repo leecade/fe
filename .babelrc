@@ -8,7 +8,6 @@
       }
   },
   "plugins": [
-    "espower",
     "transform-runtime"
   ],
   "compact": true

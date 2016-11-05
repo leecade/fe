@@ -4,13 +4,14 @@
   </a>
 </p>
 <p align="center">
+  <a href="https://github.com/leecade/fe"><img alt="FE Stack" src="https://img.shields.io/badge/FE-Stack-blue.svg?style=flat-square&colorA=333&colorB=4A90E2"></a>
   <a href="http://standardjs.com/"><img alt="JavaScript Style Guide" src="https://img.shields.io/badge/code%20style-standard-brightgreen.svg?style=flat-square"></a>
   <a href="https://npmjs.org/package/fe"><img alt="npm version" src="http://img.shields.io/npm/v/fe.svg?style=flat-square"></a>
   <a href="https://npmjs.org/package/fe"><img alt="npm version" src="http://img.shields.io/npm/dm/fe.svg?style=flat-square"></a>
   <a href="https://circleci.com/gh/leecade/fe"><img alt="Circleci" src="https://img.shields.io/circleci/token/72d6756394f8489fe6d870e3fb71f2f3658a3518/project/github/leecade/fe/master.svg?style=flat-square&label=circleci"></a>
-  <a href="https://ci.appveyor.com/project/leecade/fe"><img alt="Appveyor" src="https://img.shields.io/appveyor/ci/leecade/fe/master.svg?style=flat-square&label=appveyor"></a>
+  <a href="https://ci.appveyor.com/project/leecade/fe"><img alt="Appveyor" src="https://img.shields.io/appveyor/ci/leecade/fe.svg?style=flat-square&logo=data%3Aimage%2Fsvg%2Bxml%2C%3Csvg+xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27+width%3D%2740%27+height%3D%2740%27+viewBox%3D%270+0+40+40%27%3E%3Cpath+fill%3D%27%23BBB%27+d%3D%27M20+0c11+0+20+9+20+20s-9+20-20+20S0+31+0+20+9+0+20+0zm4.9+23.9c2.2-2.8+1.9-6.8-.9-8.9-2.7-2.1-6.7-1.6-9+1.2-2.2+2.8-1.9+6.8.9+8.9+2.8+2.1+6.8+1.6+9-1.2zm-10.7+13c1.2.5+3.8+1+5.1+1L28+25.3c2.8-4.2+2.1-9.9-1.8-13-3.5-2.8-8.4-2.7-11.9+0L2.2+21.6c.3+3.2+1.2+4.8+1.2+4.9l6.9-7.5c-.5+3.3.7+6.7+3.5+8.8+2.4+1.9+5.3+2.4+8.1+1.8l-7.7+7.3z%27%2F%3E%3C%2Fsvg%3E"></a>
   <a href="https://coveralls.io/github/leecade/fe"><img alt="Coveralls" src="https://img.shields.io/coveralls/leecade/fe.svg?style=flat-square"></a>
-  <a href="LICENSE-MIT"><img alt="LICENSE-MIT" src="https://img.shields.io/npm/l/fe.svg?style=flat-square"></a>
+  <!-- <a href="LICENSE-MIT"><img alt="LICENSE-MIT" src="https://img.shields.io/npm/l/fe.svg?style=flat-square"></a> -->
   <a href="https://fe-stack.slack.com/"><img alt="Slack" src="https://img.shields.io/badge/slack-3/8-pink.svg?style=flat-square"></a>
 </p>
 
@@ -58,8 +59,6 @@ $ yarn release # change the tar download url if you have another one
 ## Motivation
 
 TODO
-
-- [how-it-feels-to-learn-javascript-in-2016](https://hackernoon.com/how-it-feels-to-learn-javascript-in-2016-d3a717dd577f#.b1mn87t2d)
 
 ## Install
 
@@ -225,6 +224,8 @@ $ fe init mydemo
 ```
 
 ## Ecosystem
+
+![FE Stack](https://img.shields.io/badge/FE-Stack-blue.svg?style=flat-square&colorA=333&colorB=4A90E2)
 
 ```sh
 $ fe list

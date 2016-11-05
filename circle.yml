@@ -11,6 +11,7 @@ dependencies:
 test:
   post:
     - npm run coverage:report
+    - bash <(curl -s https://codecov.io/bash)
 # deployment:
 general:
   artifacts:

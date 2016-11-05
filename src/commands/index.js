@@ -1,6 +1,6 @@
 const debug = require('debug')('all')
 debug.enabled && require('time-require')
-import 'babel-polyfill'
+// import 'babel-polyfill'
 // import path from 'path'
 import { Command } from 'commander'
 import chalk from 'chalk'
