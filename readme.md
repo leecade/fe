@@ -223,9 +223,7 @@ render(<HelloMessage name="Jane" />, document.getElementById('root'))
 $ fe init mydemo
 ```
 
-## Ecosystem
-
-![FE Stack](https://img.shields.io/badge/FE-Stack-blue.svg?style=flat-square&colorA=333&colorB=4A90E2)
+## Ecosystem ![FE Stack](https://img.shields.io/badge/FE-Stack-blue.svg?style=flat-square&colorA=333&colorB=4A90E2)
 
 ```sh
 $ fe list
