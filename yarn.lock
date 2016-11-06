@@ -282,29 +282,7 @@ autoprefixer@^6.3.1, autoprefixer@^6.5.1:
     postcss "^5.2.4"
     postcss-value-parser "^3.2.3"
 
-ava-files@^0.1.1:
-  version "0.1.1"
-  resolved "http://registry.npm.taobao.org/ava-files/download/ava-files-0.1.1.tgz#18abb6f4b87029c32fc35f2053fecd3a55f1d2b0"
-  dependencies:
-    arr-flatten "^1.0.1"
-    bluebird "^3.4.1"
-    globby "^5.0.0"
-    ignore-by-default "^1.0.1"
-    multimatch "^2.1.0"
-    slash "^1.0.0"
-
-ava-init@^0.1.0:
-  version "0.1.6"
-  resolved "http://registry.npm.taobao.org/ava-init/download/ava-init-0.1.6.tgz#ef19ed0b24b6bf359dad6fbadf1a05d836395c91"
-  dependencies:
-    arr-exclude "^1.0.0"
-    cross-spawn "^4.0.0"
-    pinkie-promise "^2.0.0"
-    read-pkg-up "^1.0.1"
-    the-argv "^1.0.0"
-    write-pkg "^1.0.0"
-
-ava@^0.16.0:
+ava, ava@^0.16.0:
   version "0.16.0"
   resolved "http://registry.npm.taobao.org/ava/download/ava-0.16.0.tgz#07d7e06c627820115a84d7ee346f0bb165730454"
   dependencies:
@@ -379,6 +357,28 @@ ava@^0.16.0:
     time-require "^0.1.2"
     unique-temp-dir "^1.0.0"
     update-notifier "^1.0.0"
+
+ava-files@^0.1.1:
+  version "0.1.1"
+  resolved "http://registry.npm.taobao.org/ava-files/download/ava-files-0.1.1.tgz#18abb6f4b87029c32fc35f2053fecd3a55f1d2b0"
+  dependencies:
+    arr-flatten "^1.0.1"
+    bluebird "^3.4.1"
+    globby "^5.0.0"
+    ignore-by-default "^1.0.1"
+    multimatch "^2.1.0"
+    slash "^1.0.0"
+
+ava-init@^0.1.0:
+  version "0.1.6"
+  resolved "http://registry.npm.taobao.org/ava-init/download/ava-init-0.1.6.tgz#ef19ed0b24b6bf359dad6fbadf1a05d836395c91"
+  dependencies:
+    arr-exclude "^1.0.0"
+    cross-spawn "^4.0.0"
+    pinkie-promise "^2.0.0"
+    read-pkg-up "^1.0.1"
+    the-argv "^1.0.0"
+    write-pkg "^1.0.0"
 
 aws-sign2@~0.6.0:
   version "0.6.0"
