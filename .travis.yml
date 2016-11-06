@@ -4,5 +4,8 @@ node_js:
   - '4'
   - '5'
 before_install:
-  - npm install -g npm@3.x-latest
+  # - npm install -g npm@3.x-latest
+  - npm install -g yarn --cache-min 999999999
+install:
+  - yarn
 after_success: npm run coverage:report

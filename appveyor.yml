@@ -9,15 +9,18 @@ platform:
 install:
   - ps: Install-Product node $env:nodejs_version $env:platform
   - set CI=true
-  - npm install -g npm@3.x-latest
-  - set PATH=%APPDATA%\npm;%PATH%
-  - npm install --unsafe-perm
-  - npm prune
+  # - npm install -g npm@3.x-latest
+  - npm install -g yarn --cache-min 999999999
+  - set PATH=%APPDATA%\npm;%APPDATA%\yarn;%PATH%
+  # - npm install --unsafe-perm
+  # - npm prune
+  - yarn
 test_script:
   - node --version
-  - npm --version
+  - yarn --version
   # npm script for windows test
-  - npm run test:win
+  # - npm run test:win
+  - yarn test:win
 # GO_FAST
 matrix:
   fast_finish: true

@@ -6,11 +6,13 @@ machine:
     # - "[ -L /usr/bin/nodejs ] && sudo ln -sf /usr/bin/nodejs /usr/bin/node"
 dependencies:
   override:
-    - npm install -g npm@3.x-latest
-    - npm install --unsafe-perm
+    # - npm install -g npm@3.x-latest
+    - npm install -g yarn --cache-min 999999999
+    # - npm install --unsafe-perm
+    - yarn
 test:
   post:
-    - npm run coverage:report
+    - yarn coverage:report
     - bash <(curl -s https://codecov.io/bash)
 # deployment:
 general:
