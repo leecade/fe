@@ -7,8 +7,5 @@
         "sourceMaps": "inline"
       }
   },
-  "plugins": [
-    "transform-runtime"
-  ],
   "compact": true
 }

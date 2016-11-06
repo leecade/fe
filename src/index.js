@@ -112,18 +112,16 @@ export default () => {
     process.stderr.write(str.replace('Warning: This is an experimental feature and could change at any time.', ''))
   })
 
-  proc.on('exit', function (code, signal) {
-    process.on('exit', function () {
-      if (signal) {
-        process.kill(process.pid, signal)
-      } else {
-        process.exit(code)
-      }
-    })
-  })
+  proc.on('exit', (code, signal) => process.on('exit', () => {
+    if (signal) {
+      process.kill(process.pid, signal)
+    } else {
+      process.exit(code)
+    }
+  }))
 
   // terminate children.
-  process.on('SIGINT', function () {
+  process.on('SIGINT', () => {
     proc.kill('SIGINT') // calls runner.abort()
     proc.kill('SIGTERM') // if that didn't work, we're probably in an infinite loop, so make it die.
   })

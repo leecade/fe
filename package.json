@@ -21,7 +21,7 @@
     "babel-core": "^6.18.2",
     "babel-loader": "^6.2.7",
     "babel-polyfill": "^6.13.0",
-    "babel-preset-fe": "^1.0.14",
+    "babel-preset-fe": "1.0.16",
     "chalk": "^1.1.3",
     "chokidar": "^1.6.0",
     "clone-stats": "^1.0.0",
@@ -83,7 +83,6 @@
     "yargs": "^6.3.0"
   },
   "devDependencies": {
-    "ava": "^0.16.0",
     "babel-cli": "^6.18.0",
     "babel-eslint": "^7.1.0",
     "coveralls": "^2.11.14",
@@ -92,6 +91,7 @@
     "gulp": "gulpjs/gulp#4.0",
     "gulp-ava": "^0.14.1",
     "gulp-babel": "^6.1.2",
+    "gulp-cached": "^1.1.0",
     "gulp-newer": "^1.3.0",
     "gulp-optimize-js": "^1.1.0",
     "gulp-plumber": "^1.1.0",
@@ -130,7 +130,7 @@
     "clean": "rimraf lib",
     "babel:build": "babel src --out-dir lib",
     "babel:watch": "babel src --out-dir lib --watch",
-    "watch": "npm run test:watch & gulp watch",
+    "watch": "gulp watch",
     "build": "cross-env BABEL_ENV=production gulp",
     "dev": "npm run build && npm run watch",
     "start": "npm run build",

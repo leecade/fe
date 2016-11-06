@@ -1,4 +1,4 @@
-const debug = require('debug')('all')
+const debug = require('debug')('fe')
 debug.enabled && require('time-require')
 // import 'babel-polyfill'
 // import path from 'path'
