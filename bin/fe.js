@@ -8,4 +8,4 @@
 // DEBUG=on fe
 const debug = require('debug')('fe')
 debug.enabled && require('time-require')
-require('../lib').default()
+console.log(require('../lib').default(process.argv))

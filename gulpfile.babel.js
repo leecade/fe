@@ -31,7 +31,7 @@ try {
 
 files.lint = [files.src].concat(lintIgnore)
 
-const verboseErrors = /.*(at Parser|\[as .*\]|internal\/process\/next_tick\.js|\/regenerator-runtime\/|_callee\$|at Parser\.).*\n?/g
+const verboseErrors = /.*(at Parser|\[as .*\]|internal\/process\/next_tick\.js|\/regenerator-runtime\/|node_modules\/babel-traverse|_callee\$).*\n?/g
 
 const transform = cb => gulp.src(files.src)
   .pipe(plumber({

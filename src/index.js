@@ -1,41 +1,17 @@
 const debug = require('debug')('all')
 debug.enabled && require('time-require')
 import { spawn } from 'child_process'
-import chalk from 'chalk'
 import updateNotifier from 'update-notifier'
 import pkg from '../package.json'
+import logo from './config/logo'
 
 const version = pkg.version
 
-export default () => {
-  // Render logo
-  !~process.argv.indexOf('--version') && console.log(`
-  ${chalk.blue('   _____ _____')}${chalk.red('        _           _')}
-  ${chalk.blue('  |   __|   __|')}${chalk.red('   ___| |_ ___ ___| |_')}    ${chalk.dim('(> ” ” <)')}
-  ${chalk.blue('  |   __|   __|')}${chalk.red('  |_ -|  _| . |  _| \'_|')}   ${chalk.dim('( =’o\'= )')}
-  ${chalk.blue('  |__|  |_____|')}${chalk.red('  |___|_| |___|___|_,_|')}  ${chalk.dim(`-(,,)-(,,)-`)}${chalk.white(`v${version}`)}${chalk.dim('-')}
-      `)
-
-  const flags = process.argv.slice(2)
+export const makeArgs = (flags = []) => {
   const commands = require.resolve('./commands/')
 
   let cliArgs = []
   let args = []
-
-  // TODO
-  // fe -v -- --inspect
-  // const divIndex = flags.indexOf('--')
-  /*
-  if (divIndex === -1) {
-    // cmd = flags[0]
-    args = []
-    cliArgs = flags.slice(1)
-  } else {
-    // cmd = flags[divIndex + 1]
-    args = flags.slice(0, divIndex)
-    cliArgs = flags.slice(divIndex + 2)
-  }
-  */
 
   // Separation flag => node + cli
   flags.map(flag => {
@@ -93,10 +69,12 @@ export default () => {
   // preserve terminal color
   args.push('--color')
   args = args.concat(cliArgs)
+  return args
+}
 
-  // Register commands
+const invokeCommands = (execPath, args) => {
   // const proc = spawn(process.execPath || 'node' || 'nodejs', args, { stdio: 'inherit' })
-  const proc = spawn(process.execPath || 'node' || 'nodejs', args)
+  const proc = spawn(execPath, args)
 
   proc.stdout.on('data', (data) => {
     process.stdout.write(data)
@@ -125,10 +103,21 @@ export default () => {
     proc.kill('SIGINT') // calls runner.abort()
     proc.kill('SIGTERM') // if that didn't work, we're probably in an infinite loop, so make it die.
   })
+}
+
+export default (argv = process.argv) => {
+  const args = makeArgs(argv.slice(2))
+
+  // Register commands
+  invokeCommands(argv[0] || process.execPath || 'node' || 'nodejs', args)
 
   // Register update notifier
   updateNotifier({
     pkg,
     updateCheckInterval: 1000 * 60 * 60 * 24 * 1 // 1 days
   }).notify()
+
+  return ~argv.indexOf('--version')
+    ? ''
+    : logo.replace('{version}', version)
 }
