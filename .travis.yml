@@ -4,8 +4,9 @@ node_js:
   - '4'
   - '5'
 before_install:
-  # - npm install -g npm@3.x-latest
-  - npm install -g yarn --cache-min 999999999
+  - curl -o- -L https://yarnpkg.com/install.sh | bash
 install:
   - yarn
-after_success: npm run coverage:report
+after_success:
+  - yarn coverage:report
+  - bash <(curl -s https://codecov.io/bash)

@@ -5,10 +5,9 @@ machine:
     # fixes #12
     # - "[ -L /usr/bin/nodejs ] && sudo ln -sf /usr/bin/nodejs /usr/bin/node"
 dependencies:
+  pre:
+    - curl -o- -L https://yarnpkg.com/install.sh | bash
   override:
-    # - npm install -g npm@3.x-latest
-    - npm install -g yarn --cache-min 999999999
-    # - npm install --unsafe-perm
     - yarn
 test:
   post:
