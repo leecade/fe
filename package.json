@@ -169,7 +169,7 @@
       "test/helpers/**/*.js"
     ],
     "concurrency": 50,
-    "failFast": true,
+    "failFast": false,
     "powerAssert": false,
     "require": [
       "babel-core/register"

@@ -13,7 +13,7 @@ test('hide logo with --version', async t => {
 })
 
 test('default preserve color', async t => {
-  t.true(makeArgs().includes('--color'))
+  t.true(!!~makeArgs().indexOf('--color'))
 })
 
 test.todo('TODO: more cli arguments check')
