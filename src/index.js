@@ -1,4 +1,4 @@
-const debug = require('debug')('all')
+const debug = require('debug')('fe')
 debug.enabled && require('time-require')
 import { spawn } from 'child_process'
 import updateNotifier from 'update-notifier'
@@ -7,61 +7,54 @@ import logo from './config/logo'
 
 const version = pkg.version
 
+export const supportNodeParams = [
+  '--debug-brk',
+  '--inspect',
+  '--expose-gc',
+  '--gc-global',
+  '--es_staging',
+  '--no-deprecation',
+  '--prof',
+  '--log-timer-events',
+  '--throw-deprecation',
+  '--trace-deprecation',
+  '--use_strict',
+  '--allow-natives-syntax',
+  '--perf-basic-prof',
+  '--harmony',
+  '--trace',
+  '--icu-data-dir',
+  '--max-old-space-size',
+  '--preserve-symlinks'
+]
+
 export const makeArgs = (flags = []) => {
   const commands = require.resolve('./commands/')
 
   let cliArgs = []
   let args = []
+  let commandPos
+
+  flags.some((flag, i) => {
+    if (!~flag.indexOf(/^-/)) {
+      commandPos = i
+      return true
+    }
+  })
 
   // Separation flag => node + cli
-  flags.map(flag => {
-    switch (flag) {
-      // build-in debug mode
-      case '-d':
-      case '--debug':
+  flags.forEach((flag, i) => {
+    if (i <= commandPos) {
+      // Respect node params
+      if (~supportNodeParams.indexOf(flag)) return args.unshift(flag)
+      if (flag === '-gc') return args.unshift('--expose-gc')
+      if (flag === '-d' || flag === '--debug') {
         args.unshift('--debug-brk')
         args.unshift('--inspect')
-        break
-      case 'debug':
-      case '--debug-brk':
-      case '--inspect':
-        args.unshift(flag)
-        break
-      case '-gc':
-      case '--expose-gc':
-        args.unshift('--expose-gc')
-        break
-      case '--gc-global':
-      case '--es_staging':
-      case '--no-deprecation':
-      case '--prof':
-      case '--log-timer-events':
-      case '--throw-deprecation':
-      case '--trace-deprecation':
-      case '--use_strict':
-      case '--allow-natives-syntax':
-      case '--perf-basic-prof':
-        args.unshift(flag)
-        break
-      // default:
-      //   if (arg.indexOf('--harmony') === 0) {
-      //     args.unshift(arg)
-      //   } else if (arg.indexOf('--trace') === 0) {
-      //     args.unshift(arg)
-      //   } else if (arg.indexOf('--icu-data-dir') === 0) {
-      //     args.unshift(arg)
-      //   } else if (arg.indexOf('--max-old-space-size') === 0) {
-      //     args.unshift(arg)
-      //   } else if (arg.indexOf('--preserve-symlinks') === 0) {
-      //     args.unshift(arg)
-      //   } else {
-      //     args.push(arg)
-      //   }
-      //   break
-      default:
-        cliArgs.unshift(flag)
-        break
+        return
+      }
     }
+    cliArgs.push(flag)
   })
 
   args.push(commands)
@@ -105,11 +98,12 @@ const invokeCommands = (execPath, args) => {
   })
 }
 
-export default (argv = process.argv) => {
+export default (argv = process.argv, execPath = process.execPath) => {
   const args = makeArgs(argv.slice(2))
 
   // Register commands
-  invokeCommands(argv[0] || process.execPath || 'node' || 'nodejs', args)
+  // use `babel-node` as execPath in test environment
+  invokeCommands(execPath || argv[0] || 'node' || 'nodejs', args)
 
   // Register update notifier
   updateNotifier({

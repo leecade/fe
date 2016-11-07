@@ -12,7 +12,7 @@ import openBrowser from '../utils/openBrowser'
 import webpackDevConfig from '../config/webpack.config.dev'
 import mockMiddeware from '../middleware/mockMiddeware'
 // import proxyMiddeware from '../middleware/proxyMiddeware'
-import { watch, touchp, pathExists, mkdirp } from '../utils/fs'
+import { watch, touchp, exists, mkdirp } from '../utils/fs'
 import {
   // wait,
   log
@@ -46,7 +46,7 @@ export default async (cmd, env) => {
   }
 
   // Make sure BUILD_DIR exist
-  const buildDirExist = await pathExists(env.BUILD_DIR)
+  const buildDirExist = await exists(env.BUILD_DIR)
   if (!buildDirExist) {
     env.BUILD_DIR = path.join(env.appRoot, env.config.BUILD_DIR)
     await mkdirp(env.BUILD_DIR)

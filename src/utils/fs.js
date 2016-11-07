@@ -1,4 +1,6 @@
 import fs from 'fs'
+import rimraf from 'rimraf'
+import promisify from './promisify'
 import findup from 'findup'
 import mkdirP from 'mkdirp'
 import recursive from 'recursive-readdir'
@@ -8,7 +10,9 @@ import {
   dirname
 } from 'path'
 
-export const pathExists = path => new Promise(resolve => {
+export const rm = promisify(rimraf)
+
+export const exists = path => new Promise(resolve => {
   if (!path) resolve(false)
   fs.access(path, err => {
     resolve(!err)
@@ -57,7 +61,7 @@ export const mkdirp = (path, opts) => new Promise((resolve, reject) => mkdirP(pa
 // force: the file to be empty
 export const touchp = async (filepath, force) => {
   await mkdirp(dirname(filepath))
-  const exist = await pathExists(filepath)
+  const exist = await exists(filepath)
   !(exist && !force) && fs.writeFileSync(filepath, '')
   // fs.closeSync(fs.openSync(filepath, 'w'))
 }

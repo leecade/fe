@@ -4,10 +4,23 @@ import runner from './helpers/runner'
 
 const cliPath = path.resolve('../bin/fe.js')
 
-test('Should correct load the entry file', async t => {
+test('Ensure cli run correctly without basicy syntax errors', async t => {
+  t.notThrows(() => require('../bin/fe.js'))
+})
+
+test('Should load the entry file correctly', async t => {
   const { stdout, stderr } = await runner(cliPath)
   t.regex(stdout, /Commands/)
   t.falsy(stderr)
 })
 
-test.todo('TODO: cross-platform test')
+// DEBUG:fe fe -v
+test('Should supports DEBUG mode', async t => {
+  const { stdout, stderr } = await runner(cliPath, [], {
+    env: {
+      DEBUG: 'fe'
+    }
+  })
+  t.regex(stdout, /Start time:/)
+  t.falsy(stderr)
+})

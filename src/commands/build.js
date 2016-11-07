@@ -8,7 +8,7 @@ import rimraf from 'rimraf'
 import { copySync } from 'fs-extra'
 import { calcSizeMap, printFileSizes } from '../build/reporter'
 import { log } from '../utils'
-import { pathExists, mkdirp, touchp } from '../utils/fs'
+import { exists, mkdirp, touchp } from '../utils/fs'
 
 export default async (cmd, env) => {
   if (!env.appRoot) {
@@ -28,7 +28,7 @@ export default async (cmd, env) => {
     await touchp(env.ENTRY_FILE)
   }
   // Make sure BUILD_DIR exist
-  const buildDirExist = await pathExists(env.BUILD_DIR)
+  const buildDirExist = await exists(env.BUILD_DIR)
   if (!buildDirExist) {
     env.BUILD_DIR = path.join(env.appRoot, env.config.BUILD_DIR)
     await mkdirp(env.BUILD_DIR)

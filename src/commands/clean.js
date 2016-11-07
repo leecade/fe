@@ -1,5 +1,5 @@
-import rimraf from 'rimraf'
 import chalk from 'chalk'
+import { rm } from '../utils/fs'
 import {
   log,
   // wait,
@@ -8,7 +8,7 @@ import {
 
 const spinner = new Spinner()
 
-export default (cmd, { config, appRoot, BUILD_DIR }) => {
+export default async (cmd, { config, appRoot, BUILD_DIR }) => {
   if (!appRoot) {
     return log.warning(`No ${chalk.red.underline(config.FE_CONFIG_FILE)} found, make sure ${chalk.blue.underline('cd [project folder]')} or create your project through ${chalk.blue.underline('fe init <project> [boilerplate]')}`)
   }
@@ -18,7 +18,7 @@ export default (cmd, { config, appRoot, BUILD_DIR }) => {
   spinner.start('cleanning', {
     text: `cleanning : ${chalk.cyan.underline(BUILD_DIR)}`
   })
-  rimraf.sync(BUILD_DIR + '/*')
+  await rm(BUILD_DIR + '/*')
   spinner.stop()
   log.success(`Cleaned ${chalk.cyan.underline(BUILD_DIR)}`)
 }

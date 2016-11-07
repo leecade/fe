@@ -5,7 +5,7 @@ import osenv from 'osenv'
 import {
   findRoot,
   saveConfig,
-  pathExists
+  exists
 } from '../utils/fs'
 import defaultConfig from '../config/default'
 
@@ -110,7 +110,7 @@ export default async pkg => {
       result[key] = config[key].map(entry => resolveApp(entry))
     } else if (/(_DIR|_FILE)$/.test(key)) {
       result[key] = resolveApp(config[key])
-      if (/_DIR$/.test(key) && !await pathExists(result[key])) {
+      if (/_DIR$/.test(key) && !await exists(result[key])) {
         result[key] = null
       }
     }
@@ -119,17 +119,17 @@ export default async pkg => {
   result.EMPTY_FILE = path.join(result.sharedConfigPath, '..', config.EMPTY_FILE)
 
   // Check whether ENTRY_FILE exists
-  if (!Array.isArray(result.ENTRY_FILE) && !await pathExists(result.ENTRY_FILE)) {
+  if (!Array.isArray(result.ENTRY_FILE) && !await exists(result.ENTRY_FILE)) {
     result.ENTRY_FILE = null
   }
 
   // Decided to choose default / custom TEST_SETUP_FILE
-  if (!await pathExists(result.TEST_SETUP_FILE)) {
+  if (!await exists(result.TEST_SETUP_FILE)) {
     result.TEST_SETUP_FILE = path.join(result.sharedConfigPath, '..', config.TEST_SETUP_FILE)
   }
 
   // Decided to choose default / custom TEMPLATE_FILE
-  if (!await pathExists(result.TEMPLATE_FILE)) {
+  if (!await exists(result.TEMPLATE_FILE)) {
     result.TEMPLATE_FILE = path.join(result.sharedConfigPath, '..', config.TEMPLATE_FILE)
   }
 
@@ -137,7 +137,7 @@ export default async pkg => {
   result.CUSTOM_POLYFILLS_FILE = result.POLYFILLS_FILE
   result.POLYFILLS_FILE = path.join(result.sharedConfigPath, '..', config.POLYFILLS_FILE)
 
-  if (!await pathExists(result.CUSTOM_POLYFILLS_FILE)) {
+  if (!await exists(result.CUSTOM_POLYFILLS_FILE)) {
     result.CUSTOM_POLYFILLS_FILE = null
   }
 
