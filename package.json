@@ -70,7 +70,7 @@
     "stylus-loader": "^2.3.1",
     "time-require": "^0.1.2",
     "update-notifier": "^1.0.2",
-    "updtr": "^0.2.2",
+    "updtr": "^0.2.3",
     "url-loader": "^0.5.7",
     "validate-npm-package-name": "^2.2.2",
     "vinyl": "^2.0.0",
