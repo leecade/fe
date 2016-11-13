@@ -44,7 +44,7 @@
     "handlebars": "^4.0.5",
     "html-webpack-plugin": "^2.24.1",
     "http-proxy-middleware": "^0.17.2",
-    "inquirer": "^1.2.2",
+    "inquirer": "^1.2.3",
     "json-loader": "^0.5.4",
     "listr": "0.7.0",
     "metalsmith": "^2.2.2",
