@@ -41,7 +41,7 @@
     "filesize": "^3.3.0",
     "findup": "^0.1.5",
     "fs-extra": "^1.0.0",
-    "handlebars": "^4.0.5",
+    "handlebars": "^4.0.9",
     "html-webpack-plugin": "^2.24.1",
     "http-proxy-middleware": "^0.17.2",
     "inquirer": "^1.2.2",
