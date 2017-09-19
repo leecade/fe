@@ -61,7 +61,7 @@
     "read-metadata": "^1.0.0",
     "recursive-readdir": "^2.1.0",
     "replace-ext": "^1.0.0",
-    "request": "^2.76.0",
+    "request": "^2.82.0",
     "rimraf": "^2.5.4",
     "semver": "^5.3.0",
     "strip-ansi": "^3.0.1",
