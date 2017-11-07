@@ -16,7 +16,7 @@
     "url": "https://github.com/leecade/fe/issues"
   },
   "dependencies": {
-    "async": "^2.1.2",
+    "async": "2.5.0",
     "autoprefixer": "^6.5.1",
     "babel-core": "^6.18.2",
     "babel-loader": "^6.2.7",
