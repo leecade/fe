@@ -98,7 +98,7 @@
     "gulp-plumber": "^1.1.0",
     "gulp-standard": "^8.0.2",
     "gulp-util": "^3.0.7",
-    "gzip-size": "^3.0.0",
+    "gzip-size": "^4.0.1",
     "nyc": "^8.4.0",
     "power-assert": "^1.4.1",
     "pre-commit": "^1.1.3",
