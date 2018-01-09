@@ -21,9 +21,9 @@
 
 ## NEW PLAN
 
-`0.1.x` [DEPRECATED](https://github.com/leecade/fe/tree/greenkeeper/0.1.x)
+`0.1.x` [DEPRECATED](https://github.com/leecade/fe/tree/master)
 
-> You can review the old project [here](https://github.com/leecade/fe/tree/greenkeeper/0.1.x) and `npm i fe -g` still works.
+> You can review the old project [here](https://github.com/leecade/fe/tree/master) and `npm i fe -g` still works.
 
 `1.0` [WIP](https://github.com/leecade/fe/milestone/1)
 
