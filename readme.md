@@ -19,7 +19,15 @@
 
 ----
 
-> :beer: Basic available, still work in progress. See my [work plan](TODO.md) here.
+## NEW PLAN
+
+`0.1.x` [DEPRECATED]
+
+> You can review the old project [here](https://github.com/leecade/fe/tree/greenkeeper/0.1.x) and `npm i fe -g` still works.
+
+`1.0` [WIP](https://github.com/leecade/fe/milestone/1)
+
+> Refactor for better engineering and new techs such as SSR.
 
 ### BETA VERSION CHANGELOG
 
