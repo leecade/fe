@@ -26,7 +26,7 @@ install_link() {
   SOURCE_STR="\nexport PATH=\"\$HOME/.fe/bin:\$PATH\"\n"
   local SHELLTYPE
   SHELLTYPE="$(basename "/$SHELL")"
-  ln -sf $HOME/.fe/bin/fe.js /usr/local/bin/fe
+  sudo ln -sf $HOME/.fe/bin/fe.js /usr/local/bin/fe
 
   if [ -z "${PROFILE-}" ] ; then
     printf "$red> Profile not found. Tried ${PROFILE} (as defined in \$PROFILE), ~/.bashrc, ~/.bash_profile, ~/.zshrc, and ~/.profile.\n"
