@@ -78,7 +78,7 @@
     "webpack-dashboard": "^0.2.0",
     "webpack-dev-middleware": "^1.8.1",
     "webpack-dev-server": "2.1.0-beta.10",
-    "webpack-hot-middleware": "^2.13.1",
+    "webpack-hot-middleware": "^2.24.0",
     "whatwg-fetch": "^1.0.0",
     "yargs": "^6.3.0"
   },
