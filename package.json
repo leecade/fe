@@ -19,7 +19,7 @@
     "async": "^2.1.2",
     "autoprefixer": "^6.5.1",
     "babel-core": "^6.18.2",
-    "babel-loader": "^6.2.7",
+    "babel-loader": "^8.0.6",
     "babel-polyfill": "^6.13.0",
     "babel-preset-fe": "1.0.16",
     "chalk": "^1.1.3",
