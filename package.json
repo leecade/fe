@@ -62,7 +62,7 @@
     "recursive-readdir": "^2.1.0",
     "replace-ext": "^1.0.0",
     "request": "^2.76.0",
-    "rimraf": "^2.5.4",
+    "rimraf": "^2.7.0",
     "semver": "^5.3.0",
     "strip-ansi": "^3.0.1",
     "style-loader": "^0.13.1",
