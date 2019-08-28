@@ -31,7 +31,7 @@
     "consolidate": "^0.14.1",
     "css-loader": "^0.25.0",
     "debug": "2.3.1",
-    "deep-equal": "^1.0.1",
+    "deep-equal": "^1.1.0",
     "detect-port": "^1.0.5",
     "download-git-repo": "^0.2.1",
     "execa": "^0.5.0",
