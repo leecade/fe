@@ -43,7 +43,7 @@
     "fs-extra": "^1.0.0",
     "handlebars": "^4.0.5",
     "html-webpack-plugin": "^2.24.1",
-    "http-proxy-middleware": "^0.17.2",
+    "http-proxy-middleware": "^0.20.0",
     "inquirer": "^1.2.2",
     "json-loader": "^0.5.4",
     "listr": "0.7.0",
