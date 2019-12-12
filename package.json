@@ -69,7 +69,7 @@
     "stylus": "^0.54.5",
     "stylus-loader": "^2.3.1",
     "time-require": "^0.1.2",
-    "update-notifier": "^1.0.2",
+    "update-notifier": "^4.0.0",
     "updtr": "^0.2.2",
     "url-loader": "^0.5.7",
     "validate-npm-package-name": "^2.2.2",
